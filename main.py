@@ -2,8 +2,10 @@ from flask import Flask, session, render_template, redirect, request, url_for
 from flask import request
 from wtforms import Form, StringField
 import sqlite3
+from lib.query_model import UserModel
 
 app = Flask(__name__)
+DATABASEFILE = 'databases/testgpt.db'
 
 # Locatie van het database bestand
 # database_file = "databases/testgpt.db"
@@ -25,7 +27,10 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    if 'username' in session:
+        return render_template('index.html', username=session['username'], is_admin=session['is_admin'])
+    else:
+        return render_template('index.html')
 
 @app.route('/register')
 def register():
@@ -33,9 +38,16 @@ def register():
 
 @app.route('/login')
 def login():
-    username = request.args.get('gebruikersnaam', '')
-    password = request.args.get('password', '')
-    return render_template('/login.html')
+    if request.method == 'POST':
+        username = request.form('gebruikersnaam')
+        password = request.form('password')
+
+        model = UserModel(DATABASEFILE)
+        login = model.
+
+
+
+        return render_template('/login.html')
 
 
 @app.route('/login_check', methods = ['POST'])

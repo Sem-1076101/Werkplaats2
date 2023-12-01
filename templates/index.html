@@ -6,15 +6,14 @@
     <title>Document</title>
 </head>
 <body>
-    {% extends "login.html" %}
-
-
-
-    {$ block form %}
-
-    {% endblock %}
-    <h1>Dit word de index</h1>
-    <a href="{{url_for('login')}}">Login</a>
-    <a href="{{url_for('register')}}">Register</a>
+    <h1>Homepagina</h1>
+    <!-- <a href="{{url_for('login')}}">Login</a>
+    <a href="{{url_for('register')}}">Register</a> -->
+    {% if username %}
+        <p>Hallo, {{username}}! U bent ingelogd</p>
+        <a href="/logout">Uitloggen</a>
+    {% else %}
+        <a href="/login">Inloggen</a>
+    {% endif %}
 </body>
 </html>

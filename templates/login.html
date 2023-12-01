@@ -9,17 +9,15 @@
     <div class="container">
         <div class="inner-container">
             <h2>Inloggen</h2>
-            {% block form %}
-            <form action="" method="post">
+            <form action="/login" method="POST">
                 <label for="username">Gebruikersnaam:</label>
-                <input type="text"">
+                <input type="text" name="username" id="username" required>
     
                 <label for="password">Wachtwoord:</label>
-                <input type="password">
-    
-                <button type="submit" name="button_submit_login">Inloggen</button>
+                <input type="password" name="password" id="password" required>
+
+                <button type="submit" value="button_submit_login" name="button_submit_login">Inloggen</button>
             </form>
-            {% endblock %}
         </div>
     </div>
 </body>
