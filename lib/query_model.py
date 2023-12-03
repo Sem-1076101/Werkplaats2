@@ -25,6 +25,12 @@ class UserModel:
         cursor.connection.commit()
 
 
+    def get_user_by_username(self, username):
+        cursor = self.get_cursor()
+        cursor.execute("SELECT * FROM teachers WHERE username=?", username)
+        return cursor.fetchone()
+
+
     def check_login(self, username, password):
         cursor = self.get_cursor()
         cursor.execute("SELECT * FROM teachers WHERE username=?", (username))
