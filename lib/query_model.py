@@ -21,13 +21,13 @@ class UserModel:
         hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
         cursor = self.get_cursor()
         cursor.execute("INSERT INTO teachers (display_name, username, teacher_password, date_created, is_admin) VALUES (?, ?, ?, datetime('now'), ?)",
-                       display_name, username, hashed_password, is_admin)
+                       (display_name, username, hashed_password, is_admin))
         cursor.connection.commit()
 
 
     def get_user_by_username(self, username):
         cursor = self.get_cursor()
-        cursor.execute("SELECT * FROM teachers WHERE username=?", username)
+        cursor.execute("SELECT * FROM teachers WHERE username=?", (username,))
         return cursor.fetchone()
 
 

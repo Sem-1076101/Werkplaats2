@@ -7,24 +7,6 @@ from lib.query_model import UserModel
 app = Flask(__name__)
 DATABASEFILE = 'databases/testgpt.db'
 
-# Locatie van het database bestand
-# database_file = "databases/testgpt.db"
-# # Maak verbinding met het database bestand
-# conn = sqlite3.connect(database_file)   
-# # Maak een cursor object waarmee je SQL statements kan uitvoeren
-# c = conn.cursor()
-# # Voer een SQL statement uit
-# result = c.execute("SELECT count(*) FROM teachers")
-# # Nu niet nodig, maar stel dat dit een UPDATE statement was, dan had je nu moeten committen
-# # conn.commit()
-# number_of_teachers = result.fetchone()[0]  
-# print(f"Er zijn {number_of_teachers} docenten in de database")
-# # Sluit de verbinding met de database, is netjes, moet niet
-# conn.close()
-
-# class RegisterForm(Flaskform):
-    # username = StringField(validators=[InputRequired(), Length(min=4, max=20)])
-
 @app.route('/')
 def index():
     if 'username' in session:
@@ -43,7 +25,7 @@ def register_check():
         display_name = request.form['display_name']
         # .get is voor als je een specifieke waarde wilt ophalen, 
         # als die waarde niet bestaat word er ingevuld wat tussen de () staat.
-        is_admin = request.form.get('is_admin', 0)
+        is_admin = request.form.get('is_admin', 1)
         model = UserModel(DATABASEFILE)
 
         # check of gebruiker niet al bestaat
@@ -51,14 +33,13 @@ def register_check():
         if existing_user:
             # stuur de gebruiker naar de error pagina als hij iets vindt
             return render_template('register_error.html', message='Gebruikersnaam bestaat al!')
+            
+        model.create_user(display_name = display_name, username = username, password = password, is_admin = is_admin)
+        return redirect(url_for('login'))
+            
 
 
-        register = model.create_user(username = username, password = password, display_name = display_name, is_admina = is_admin)
-        if register:
-            return redirect(url_for('login'))
-        else:
-            return render_template('register_error.html', message='Aanmaken van een account is niet gelukt, probeer het opnieuw.')
-
+        
 
 
 
@@ -74,7 +55,7 @@ def login():
 
 
 
-        return render_template('/login.html')
+        return render_template('login.html')
 
 
 @app.route('/login_check', methods = ['POST'])
