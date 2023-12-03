@@ -5,9 +5,11 @@ import sqlite3
 from lib.query_model import UserModel
 
 app = Flask(__name__)
+app.secret_key = 'xxxxxxxxxx'
 DATABASEFILE = 'databases/testgpt.db'
 
 @app.route('/')
+@app.route('/index')
 def index():
     if 'username' in session:
         return render_template('index.html', username=session['username'], is_admin=session['is_admin'])
@@ -46,42 +48,23 @@ def register_check():
 
 @app.route('/login')
 def login():
-    if request.method == 'POST':
-        username = request.form('gebruikersnaam')
-        password = request.form('password')
-
-        model = UserModel(DATABASEFILE)
-        login = model.create_user(username = username, password = password, )
-
-
-
         return render_template('login.html')
 
 
-@app.route('/login_check', methods = ['POST'])
+@app.route('/login_check', methods=['POST'])
 def login_check():
-    username = request.form['username']
-    password = request.form['password']
+        username = request.form['username']
+        password = request.form['password']
+        
+        model = UserModel(DATABASEFILE)
+        login_check = model.check_login(username = username, password = password)
+        if login_check:
+            # session['username'] = username . , username=session['username']
+            return redirect(url_for('index'))
+        else:
+            return render_template('login_error.html')
+             
 
-
-    return redirect(url_for('app.index'))
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-
-
-
-    # firstName = request.args.get('firstName', '')
-    # lastName = request.args.get('lastName', '')
-    # yearsOnSchool = request.args.get('yearsOnSchool', '')
-    # dateOfBirth = request.args.get('dateOfBirth', '')
-    # email = request.args.get('email', '')
-    # password = request.args.get('password', '')
-    # print(firstName)
-    # print(lastName)
-    # print(yearsOnSchool)
-    # print(dateOfBirth)
-    # print(email)
-    # print(password)
-    # return render_template('hello_world.html')

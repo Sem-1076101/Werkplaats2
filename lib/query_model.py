@@ -33,7 +33,7 @@ class UserModel:
 
     def check_login(self, username, password):
         cursor = self.get_cursor()
-        cursor.execute("SELECT * FROM teachers WHERE username=?", (username))
+        cursor.execute("SELECT * FROM teachers WHERE username=?", (username,))
         user = cursor.fetchone()
 
         if user and bcrypt.checkpw(password.encode('utf-8'), user['teacher_password']):
