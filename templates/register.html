@@ -1,32 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Register</title>
+    <link rel="stylesheet" href="/static/CSS/login_register.css">
 </head>
+
 <body>
-    <div class="container">
+    <div class="container-register">
         <div class="inner-container">
             <h2>Register</h2>
-            <form action="/register_check" method="POST">
+            <form action="/register_check" method="POST" class="register_form">
                 <label for="username">Gebruikersnaam:</label>
                 <input type="text" name="username" id="username">
-    
+
                 <label for="password">Wachtwoord:</label>
                 <input type="password" name="password" id="password">
 
                 <label for="display_name">Volledige naam:</label>
                 <input type="text" name="display_name" id="display_name">
 
-                {% if is_admin == 1 %}
-                <label for="is_admin">Admin?</label>
-                <input type="number" id="is_admin" name="is_admin">
-                {% endif %}
-    
-                <button type="submit" name="button_submit_login">Registreren</button>
+                <button type="submit" class="register_button" name="button_submit_login">Registreren</button>
             </form>
+
+            <div class="login_tag_container">
+                <a href="/">Inloggen</a>
+            </div>
+
+            <div class="flash_message">
+                {% for message in get_flashed_messages() %}
+                <div class="inner_flash_message">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
         </div>
     </div>
 </body>
+
 </html>

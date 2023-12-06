@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
+* {
+    font-family: 'Rubik', sans-serif;
+}
+.container{
+    width: 750px;
+    margin: auto;
+    margin-top: 150px;
+}
+
+.container-register {
+    width: 750px;
+    margin: auto;
+    margin-top: 75px;
+}
+
+.inner-container {
+    justify-content: center;
+    text-align: center;
+    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.3);
+    padding: 25px;
+}
+
+.login_form, .register_form{
+    max-width: 500px;
+    margin: 2rem auto;
+    padding: 2rem;
+}
+
+.login_form input, .register_form input {
+    border-radius: 8px; /* Maak de hoeken van het formulier iets meer afgerond */
+    width: 100%;
+    padding: 5px;
+    text-align: center;
+    border: 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    margin-top: 10px; 
+    margin-bottom: 10px
+}
+
+
+.login_button, .register_button {
+    transition-duration: 0.5s;
+    font-size: 15px;
+    margin-top: 10px;
+    padding: 15px;
+    background: black;
+    color: #fff;
+    cursor: pointer;
+    border: 0;
+}
+  
+.login_button:hover, .register_button:hover {
+    background-color: #43cd5e;
+    color: white;
+    transition-duration: 0.5s;
+    cursor: pointer;
+}
+
+.register_tag_container, .login_tag_container {
+    margin-bottom: 10px;
+}
+
+.register_tag_container a, .login_tag_container a {
+    transition-duration: 0.5s;
+    padding: 15px;
+    font-size: 15px;
+    color: #fff;
+    text-decoration: none;
+    background: #43cd5e;
+}
+
+.register_tag_container a:hover, .login_tag_container a:hover {
+    color: #fff;
+    transition-duration: 0.5s;
+    cursor: pointer;
+    background: black;
+}
+
+.inner_flash_message {
+    margin-top: 25px;
+    background: lightgray;
+    padding: 25px;
+    text-align: center;
+}

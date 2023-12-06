@@ -27,7 +27,8 @@ def register_check():
         existing_user = model.get_user_by_username(username)
         if existing_user:
             # stuur de gebruiker naar de error pagina als hij iets vindt
-            return render_template('register_error.html', message='Gebruikersnaam bestaat al!')
+            flash('Er bestaat al een account met deze gebruikersnaam!')
+            return redirect(url_for('register'))
             
         model.create_user(display_name = display_name, username = username, password = password, is_admin = is_admin)
         return redirect(url_for('login'))
@@ -53,7 +54,7 @@ def login_check():
             return redirect(url_for('welcome'))
         else:
             flash('Gebruikersnaam of wachtwoord onjuist.')
-            return render_template(url_for(login))
+            return redirect(url_for('login'))
              
 
 @app.route('/welcome')
@@ -61,14 +62,27 @@ def welcome():
     username = session.get('username')
 
     if username == 'admin':
-        return render_template(url_for('admin'))
+        return redirect(url_for('admin'))
     else:
         return render_template('index.html')
    
 
 @app.route('/admin')
 def admin():
-    return render_template('admin.html')
+    username = session.get('username')
+    if not username:
+        flash('U moet inloggen om deze pagina te bezoeken.')
+        return redirect(url_for('login'))
+    else:
+        return render_template('admin.html')
+         
+
+@app.route('/logout')
+def logout():
+    session.pop('username', None)
+    flash('U bent nu uitgelogd.')
+    return redirect(url_for('login'))
+
 
 
 if __name__ == '__main__':
