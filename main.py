@@ -1,20 +1,13 @@
-from flask import Flask, session, render_template, redirect, request, url_for
+from flask import Flask, session, render_template, redirect, request, url_for, flash
 from flask import request
 from wtforms import Form, StringField
 import sqlite3
 from lib.query_model import UserModel
 
 app = Flask(__name__)
-app.secret_key = 'xxxxxxxxxx'
+app.secret_key = 'mysecretkey'
 DATABASEFILE = 'databases/testgpt.db'
 
-@app.route('/')
-@app.route('/index')
-def index():
-    if 'username' in session:
-        return render_template('index.html', username=session['username'], is_admin=session['is_admin'])
-    else:
-        return render_template('index.html')
 
 @app.route('/register')
 def register():
@@ -42,28 +35,40 @@ def register_check():
 
 
         
-
-
-
-
-@app.route('/login')
+@app.route('/')
 def login():
-        return render_template('login.html')
+    return render_template('login.html')
 
 
-@app.route('/login_check', methods=['POST'])
+
+@app.route('/login', methods=['POST'])
 def login_check():
-        username = request.form['username']
-        password = request.form['password']
+        username = request.form.get('username')
+        password = request.form.get('password')
         
-        model = UserModel(DATABASEFILE)
-        login_check = model.check_login(username = username, password = password)
+        user_model = UserModel(DATABASEFILE)
+        login_check = user_model.check_login(username, password)
         if login_check:
-            # session['username'] = username . , username=session['username']
-            return redirect(url_for('index'))
+            session['username'] = username
+            return redirect(url_for('welcome'))
         else:
-            return render_template('login_error.html')
+            flash('Gebruikersnaam of wachtwoord onjuist.')
+            return render_template(url_for(login))
              
+
+@app.route('/welcome')
+def welcome():
+    username = session.get('username')
+
+    if username == 'admin':
+        return render_template(url_for('admin'))
+    else:
+        return render_template('index.html')
+   
+
+@app.route('/admin')
+def admin():
+    return render_template('admin.html')
 
 
 if __name__ == '__main__':

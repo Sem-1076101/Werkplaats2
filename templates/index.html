@@ -9,8 +9,8 @@
     <h1>Homepagina</h1>
     <!-- <a href="{{url_for('login')}}">Login</a>
     <a href="{{url_for('register')}}">Register</a> -->
-    {% if username %}
-        <p>Hallo, {{username}}! U bent ingelogd</p>
+    {% if session.username %}
+        <p>Hallo, {{ session.username}}! U bent ingelogd</p>
         <a href="/logout">Uitloggen</a>
     {% else %}
         <a href="/login">Inloggen</a> <br>
