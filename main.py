@@ -23,24 +23,29 @@ def register_check():
         is_admin = request.form.get('is_admin', 1)
         model = UserModel(DATABASEFILE)
 
+
+        session_is_admin = session.get('is_admin')
         # check of gebruiker niet al bestaat
         existing_user = model.get_user_by_username(username)
         if existing_user:
             # stuur de gebruiker naar de error pagina als hij iets vindt
             flash('Er bestaat al een account met deze gebruikersnaam!')
-            return redirect(url_for('register'))
+            if session_is_admin == 1: 
+                return redirect(url_for('register'))
+            else:
+                return redirect(url_for('admin'))
             
         model.create_user(display_name = display_name, username = username, password = password, is_admin = is_admin)
-        return redirect(url_for('login'))
             
-
-
+        if session_is_admin == 1: 
+            return redirect(url_for('login'))
+        else:
+            return redirect(url_for('admin'))
+            
         
 @app.route('/')
 def login():
     return render_template('login.html')
-
-
 
 @app.route('/login', methods=['POST'])
 def login_check():
@@ -60,8 +65,9 @@ def login_check():
 @app.route('/welcome')
 def welcome():
     username = session.get('username')
+    is_admin = session.get('is_admin')
 
-    if username == 'admin':
+    if username == 'admin' or is_admin == 0:
         return redirect(url_for('admin'))
     else:
         return render_template('index.html')
@@ -70,16 +76,20 @@ def welcome():
 @app.route('/admin')
 def admin():
     username = session.get('username')
+    is_admin = session.get('is_admin')
     if not username:
         flash('U moet inloggen om deze pagina te bezoeken.')
         return redirect(url_for('login'))
     else:
-
         model = UserModel(DATABASEFILE)
         get_techers = model.get_all_teachers()
         return render_template('admin.html', teachers = get_techers)
-         
+    
 
+@app.route('/nieuw_account')
+def nieuw_account():
+    return render_template('nieuwe_docent.html')         
+# or is_admin == 1
 @app.route('/logout')
 def logout():
     session.pop('username', None)
