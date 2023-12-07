@@ -14,11 +14,20 @@
     margin-top: 75px;
 }
 
+.h2_edit {
+    background-color: #43cd5e;
+    text-align: center;
+    width: 750px !important;
+    padding-top: 12.5px;
+    padding-bottom: 12.5px;
+    color: #fff;
+}
+
 .inner-container {
     justify-content: center;
     text-align: center;
     box-shadow: 0 5px 8px rgba(0, 0, 0, 0.3);
-    padding: 25px;
+    padding-bottom: 25px;
 }
 
 .login_form, .register_form{

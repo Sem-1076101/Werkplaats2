@@ -74,7 +74,10 @@ def admin():
         flash('U moet inloggen om deze pagina te bezoeken.')
         return redirect(url_for('login'))
     else:
-        return render_template('admin.html')
+
+        model = UserModel(DATABASEFILE)
+        get_techers = model.get_all_teachers()
+        return render_template('admin.html', teachers = get_techers)
          
 
 @app.route('/logout')
