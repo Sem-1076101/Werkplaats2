@@ -45,5 +45,15 @@ class UserModel:
         cursor = self.get_cursor()
         cursor.execute("SELECT * FROM teachers")
         return cursor.fetchall() 
+    
+    def get_all_categories(self):
+        cursor = self.get_cursor()
+        cursor.execute("SELECT * FROM categories")
+        return cursor.fetchall() 
 
-        
+
+    def create_notes(self, title, note_source, is_public, teacher_id, category_id, note):
+        cursor = self.get_cursor()
+        cursor.execute("INSERT INTO notes (title, note_source, is_public, teacher_id, category_id, note) VALUES (?, ?, ?, ?, ?, datetime('now'))",
+                       (title, note_source, is_public, teacher_id, category_id, note))
+        cursor.connection.commit()

@@ -44,7 +44,6 @@ def register_check():
             
         
 @app.route('/')
-
 def login():
     return render_template('login.html')
 
@@ -63,7 +62,7 @@ def login_check():
             return redirect(url_for('login'))
              
 
-@app.route('/welcome')
+@app.route('/index')
 def welcome():
     username = session.get('username')
     is_admin = session.get('is_admin')
@@ -71,7 +70,27 @@ def welcome():
     if username == 'admin' or is_admin == 0:
         return redirect(url_for('admin'))
     else:
-        return render_template('index.html')
+        model = UserModel(DATABASEFILE)
+        get_categories = model.get_all_categories()
+        return render_template('index.html', categories = get_categories)
+    
+        
+        # return render_template('admin.html', teachers = get_techers)
+    
+
+@app.route('/save-form', methods=['POST'])
+def save_form():
+    title = request.form['title']
+    note_source = request.form['note_source']
+    # category_id = request.form['category_id']
+    category_id = request.form.get('category_id', 1)
+    date = request.form['date']
+    note = request.form['note']
+    save = request.form['save']
+    model = UserModel(DATABASEFILE)
+
+    model.create_notes(title = title, note_source = note_source, category_id = category_id, note = note)
+    return render_template('index.html')
    
 
 @app.route('/admin')

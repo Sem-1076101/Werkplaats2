@@ -13,8 +13,7 @@
     <div class="header">
         <a href="#default" class="logo">TEST-CORRECT</a>
         <div class="header-right">
-            <a class="active" href="#home">Notities</a>
-            <a href="#contact">contact</a>
+            <a class="active" href="#notities">Notities</a>
             <a href="/logout">Uitloggen</a>
         </div>
     </div>
@@ -25,6 +24,58 @@
     <a href="/">Inloggen</a> <br>
     <a href="/register">Registreren</a>
     {% endif %}
+
+    <form method="post" action="/save-form">
+        <div>
+            <input type="text" name="title" />
+        </div>
+        <div>
+            <input type="text" name="note_source" />
+        </div>
+        <div>
+            <label for="category_id">Is admin?</label>
+                <select name="category_id" id="category_id" multiple>
+                    {% for category in categories %}
+                    <option value="{{ category.category_id}}">{{ category.omschrijving }}</option>
+                    {% endfor %}
+                    <option value="0">Ja</option>
+                </select>
+
+        </div>
+        <div>
+            <fieldset>
+                <legend>category_id</legend>
+                <div>
+                    <input type="checkbox" id="Nederlands" name="Categorie" value="Nederlands" />
+                    <label for="Nederlands">Nederlands</label>
+                    <input type="checkbox" id="Engels" name="Categorie" value="Engels" />
+                    <label for="Engels">Engels</label>
+                    <input type="checkbox" id="Frans" name="Categorie" value="Frans" />
+                    <label for="Frans">Frans</label>
+                    <input type="checkbox" id="Duits" name="Categorie" value="Duits" />
+                    <label for="Duits">Duits</label>
+                    <input type="checkbox" id="Wiskunde" name="Categorie" value="Wiskunde" />
+                    <label for="Wiskunde">Wiskunde</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="Muziek" name="Categorie" value="Muziek" />
+                    <label for="Muziek">Muziek</label>
+                    <input type="checkbox" id="Aardrijskunde" name="Categorie" value="Aardrijskunde" />
+                    <label for="Aardrijskunde">Aardrijskunde</label>
+                    <input type="checkbox" id="Biologie" name="Categorie" value="Biologie" />
+                    <label for="Biologie">Biologie</label>
+                </div>
+            </fieldset>
+            <div>
+                <input type="text" name="note" />
+            </div>
+            <div>
+                <input type="submit" name="save" />
+                <input type="reset" value="Reset">
+            </div>
+            <div>
+
+    </form>
 </body>
 
 </html>
