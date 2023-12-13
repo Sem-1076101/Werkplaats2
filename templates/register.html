@@ -4,30 +4,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Register</title>
     <link rel="stylesheet" href="/static/CSS/login_register.css">
 </head>
 
 <body>
-    <div class="container">
+    <div class="container-register">
         <div class="inner-container">
             <div class="h2_edit">
-                <h2>Inloggen</h2>
+                <h2>Registreren</h2>
             </div>
-            <form action="/login" method="POST" class="login_form">
+            <form action="/register_check" method="POST" class="register_form">
                 <label for="username">Gebruikersnaam:</label>
-                <input type="text" name="username" id="username" required>
+                <input type="text" name="username" id="username"  required>
 
                 <label for="password">Wachtwoord:</label>
                 <input type="password" name="password" id="password" required>
 
-                <button type="submit" class="login_button" value="button_submit_login" name="button_submit_login">Inloggen</button>
+                <label for="display_name">Volledige naam:</label>
+                <input type="text" name="display_name" id="display_name" required>
+
+                <button type="submit" class="register_button" name="button_submit_login">Registreren</button>
             </form>
 
-
-            <div class="register_tag_container">
-                <a href="/register">Registreren?</a>
+            <div class="login_tag_container">
+                <a href="/">Inloggen</a>
             </div>
+
             <div class="flash_message">
                 {% for message in get_flashed_messages() %}
                 <div class="inner_flash_message">

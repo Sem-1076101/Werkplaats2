@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docent toevoegen</title>
+</head>
+<body>
+    <div class="container-register">
+        <div class="inner-container">
+            <div class="h2_edit">
+                <h2>Registreren</h2>
+            </div>
+            <form action="/register_check" method="POST" class="register_form">
+                <label for="username">Gebruikersnaam:</label>
+                <input type="text" name="username" id="username"  required>
+
+                <label for="password">Wachtwoord:</label>
+                <input type="password" name="password" id="password" required>
+
+                <label for="display_name">Volledige naam:</label>
+                <input type="text" name="display_name" id="display_name" required>
+
+                <label for="is_admin">Is admin?</label>
+                <select name="is_admin" id="is_admin" multiple>
+                    <option value="1">Nee</option>
+                    <option value="0">Ja</option>
+                </select>
+
+                <button type="submit" class="register_button" name="button_submit_login">Registreren</button>
+            </form>
+
+            <div class="flash_message">
+                {% for message in get_flashed_messages() %}
+                <div class="inner_flash_message">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

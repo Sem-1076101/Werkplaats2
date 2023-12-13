@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
+* {
+    font-family: 'Rubik', sans-serif;
+}
+
+.container {
+    width: 850px;
+    margin-top: 150px;
+    margin: auto;
+}
+
+.inner-container {
+    justify-content: center;
+    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.3);
+    padding: 25px;
+}
+
+.button-container {
+    margin: auto;
+    text-align: center;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.button-container a {
+    padding: 7px;
+    background-color: red;
+    color: #fff;
+    
+}
+
+.teacher-info-container {
+    max-width: 600px;
+    margin: auto;
+}
+
+/* .container-flex {
+    display: flex; 
+    flex-direction: row;
+    justify-content: space-between;
+} */
+
+.namen_columns {
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.3);
+    padding: 15px;
+    border: 1px solid black;
+    margin-bottom: 35px;
+}
+
+.teacher {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.3);
+    border: 1px solid black;
+    margin-top: 15px;
+    padding: 15px;
+}
