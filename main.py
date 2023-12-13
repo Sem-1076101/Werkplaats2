@@ -1,6 +1,6 @@
 from flask import Flask, session, render_template, redirect, request, url_for, flash
 from flask import request
-from wtforms import Form, StringField
+from wtforms import Form, BooleanField, StringField, PasswordField, validators
 import sqlite3
 from lib.query_model import UserModel
 
@@ -62,7 +62,7 @@ def login_check():
             return redirect(url_for('login'))
              
 
-@app.route('/welcome')
+@app.route('/index')
 def welcome():
     username = session.get('username')
     is_admin = session.get('is_admin')
@@ -88,8 +88,15 @@ def admin():
 
 @app.route('/nieuw_account')
 def nieuw_account():
+    # if is_admin == 
     return render_template('nieuwe_docent.html')         
-# or is_admin == 1
+
+@app.route('/verwijder_docent/<teacher_id>')
+def verwijder_docent(teacher_id):
+    
+    return 
+
+
 @app.route('/logout')
 def logout():
     session.pop('username', None)

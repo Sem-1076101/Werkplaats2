@@ -13,11 +13,6 @@
     <a href="/logout">Uitloggen</a>
     <div class="container">
         <div class="inner-container">
-            <div class="button-container">
-                <div>
-                    <a href="/nieuw_account">Nieuwe docent toevoegen</a>
-                </div>
-            </div>
             <div class="teacher-info-container">
                 <div class="namen_columns">
                     <div>
@@ -28,6 +23,9 @@
                     </div>
                     <div>
                         <p>Admin, 0 is Ja</p>
+                    </div>
+                    <div>
+                        <a class="docent-toevoeg-button" href="/nieuw_account">Nieuwe docent toevoegen</a>
                     </div>
                 </div>
                 <div class="container-flex">
@@ -42,12 +40,22 @@
                         <div>
                             <p>{{ teacher.is_admin }}</p>
                         </div>
-                    </div>
-                    <div class="">
-                        <div>
-                            <a href="">Aanpassen</a>
+                        <div class="update-buttons">
+                            <div>
+                                <a href="/docent_aanpas/{{teacher.teacher_id}}">Aanpassen</a>
+                            </div>
+                            <div>
+                                <!-- <a href="/verwijder_docent/{{teacher.teacher_id}}">Verwijderen</a> -->
+                                <a href="#show" id="show">Verwijderen</a>
+                            </div>
                         </div>
-                        <div><a href="">Verwijderen</a></div>
+                    </div>
+                    <div id="show">
+                        <div id="cont">
+                            <p>Weet je zeker dat je {{ teacher.display_name }} wilt verwijderen?</p>
+                            <a href="#">Ja</a>
+                            <a href="#hide" id="hide">Nee</a>
+                        </div>
                     </div>
                     {% endfor %}
                 </div>

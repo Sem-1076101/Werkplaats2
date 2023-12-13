@@ -45,5 +45,8 @@ class UserModel:
         cursor = self.get_cursor()
         cursor.execute("SELECT * FROM teachers")
         return cursor.fetchall() 
-
-        
+    
+    def delete_user(self, teacher_id):
+        cursor = self.get_cursor()
+        cursor.execute("DELETE FROM teachers WHERE teacher_id = ?", (teacher_id,))
+        return cursor.excecute()        
