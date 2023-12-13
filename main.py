@@ -1,6 +1,6 @@
 from flask import Flask, session, render_template, redirect, request, url_for, flash
 from flask import request
-from wtforms import Form, StringField
+from wtforms import Form, BooleanField, StringField, PasswordField, validators
 import sqlite3
 from lib.query_model import UserModel
 

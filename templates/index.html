@@ -1,20 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="/static/css/index.css">
 </head>
+
 <body>
-    <h1>Homepagina</h1>
-    <!-- <a href="{{url_for('login')}}">Login</a>
-    <a href="{{url_for('register')}}">Register</a> -->
     {% if session.username %}
-        <p>Hallo, {{ session.username}}! U bent ingelogd</p>
-        <a href="/logout">Uitloggen</a>
+    <div class="header">
+        <a href="#default" class="logo">TEST-CORRECT</a>
+        <div class="header-right">
+            <a class="active" href="#home">Notities</a>
+            <a href="#contact">contact</a>
+            <a href="/logout">Uitloggen</a>
+        </div>
+    </div>
+
+
+    <p>Hallo, {{ session.username}}! U bent ingelogd</p>
     {% else %}
-        <a href="/">Inloggen</a> <br>
-        <a href="/register">Registreren</a>
+    <a href="/">Inloggen</a> <br>
+    <a href="/register">Registreren</a>
     {% endif %}
 </body>
+
 </html>
