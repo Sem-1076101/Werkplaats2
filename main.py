@@ -89,13 +89,51 @@ def admin():
 @app.route('/nieuw_account')
 def nieuw_account():
     # if is_admin == 
-    return render_template('nieuwe_docent.html')         
+    return render_template('nieuwe_docent.html')   
 
-@app.route('/verwijder_docent/<teacher_id>')
-def verwijder_docent(teacher_id):
+
+@app.route('/docent_aanpas/<int:teacher_id>')
+def docent_aanpas(teacher_id):
+    is_admin = session.get('is_admin')
+    model = UserModel(DATABASEFILE)
+    get_teacher = model.get_teacher_by_id(teacher_id)
+
+    if get_teacher:
+        return render_template('docent_aanpas.html', teacher = get_teacher)
+    else:
+        flash('Er is iets fout gegaan met het ophalen van de gebruiker')
+        return redirect(url_for('admin'))   
+
+@app.route('/verwerk_aanpas_docent', methods=['POST'])
+def verwerk_aanpas_docent():
+    teacher_id = request.form['teacher_id']
+    username = request.form['username']
+    display_name = request.form['display_name']
+    is_admin = request.form['is_admin']
+
+    model = UserModel(DATABASEFILE)
+    update_teacher = model.update_user(teacher_id = teacher_id, display_name =  display_name, username = username, is_admin = is_admin)
+
+    if not update_teacher:
+        flash('Docent succesvol aangepast!')
+        return redirect(url_for('admin'))
+    else:
+        flash('Er is iets fout gegaan met het aanpassen.')
+        return redirect(url_for('admin'))
     
-    return 
 
+@app.route('/verwijder_docent/<int:teacher_id>')
+def verwijder_docent(teacher_id):
+    is_admin = session.get('is_admin')
+    model = UserModel(DATABASEFILE)
+    delete_usercheck = model.delete_user(teacher_id)
+    if not delete_usercheck:
+        flash('Gebruiker is verwijderd.')
+    else:
+        flash('Er is iets fout gegaan met het verwijderen van de gebruiker.')
+        return redirect(url_for('admin'))
+    
+    return redirect(url_for('admin'))
 
 @app.route('/logout')
 def logout():

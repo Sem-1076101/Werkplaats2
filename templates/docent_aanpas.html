@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docent aanpassen</title>
+</head>
+<body>
+    <div class="container">
+        <div class="inner-container">
+            <h1>Docent aanpassen met id nummer {{teacher.teacher_id}}</h1>
+            <form action="/verwerk_aanpas_docent" method="post">
+                <label for="teacher_id">Leraar id:</label>
+                <input type="text" name="teacher_id" value="{{teacher.teacher_id}}" readonly>
+
+                <label for="display_name">Volledige naam:</label>
+                <input type="text" name="display_name" value="{{teacher.display_name}}" required>
+
+                <label for="username">Gebruikersnaam</label>
+                <input type="text" name="username" value="{{teacher.username}}" required>
+
+                <p>Datum van aanmaak: {{teacher.date_created}}</p>
+                
+                <label for="is_admin">Admin?</label>
+                <select name="is_admin" id="is_admin" required>
+                    {% if teacher.is_admin == 0%}
+                    <option value="0">Ja</option>
+                    <option value="1">Nee</option>
+                    {% else %}
+                    <option value="1">Nee</option>
+                    <option value="0">Ja</option>
+                    {% endif %}
+                </select>
+
+                <button type="submit">Aanpassing verzenden</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

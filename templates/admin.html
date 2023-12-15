@@ -9,11 +9,19 @@
 </head>
 
 <body>
-    <h1>Admin pagina</h1>
+   
     <a href="/logout">Uitloggen</a>
     <div class="container">
         <div class="inner-container">
             <div class="teacher-info-container">
+                <h1>Admin pagina</h1>
+                <div class="flash_message">
+                    {% for message in get_flashed_messages() %}
+                    <div class="inner_flash_message">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                </div>
                 <div class="namen_columns">
                     <div>
                         <p>Leraar ID</p>
@@ -45,16 +53,8 @@
                                 <a href="/docent_aanpas/{{teacher.teacher_id}}">Aanpassen</a>
                             </div>
                             <div>
-                                <!-- <a href="/verwijder_docent/{{teacher.teacher_id}}">Verwijderen</a> -->
-                                <a href="#show" id="show">Verwijderen</a>
+                                <a href="/verwijder_docent/{{teacher.teacher_id}}">Verwijderen</a>
                             </div>
-                        </div>
-                    </div>
-                    <div id="show">
-                        <div id="cont">
-                            <p>Weet je zeker dat je {{ teacher.display_name }} wilt verwijderen?</p>
-                            <a href="#">Ja</a>
-                            <a href="#hide" id="hide">Nee</a>
                         </div>
                     </div>
                     {% endfor %}
@@ -62,6 +62,7 @@
             </div>
         </div>
     </div>
-</body>
 
+    
+</body>
 </html>

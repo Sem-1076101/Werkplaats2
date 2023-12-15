@@ -46,7 +46,18 @@ class UserModel:
         cursor.execute("SELECT * FROM teachers")
         return cursor.fetchall() 
     
+    def get_teacher_by_id(self, teacher_id):
+        cursor = self.get_cursor()
+        cursor.execute("SELECT * FROM teachers WHERE teacher_id=?", (teacher_id,))
+        return cursor.fetchone()
+
+
+    def update_user(self, display_name, username, is_admin, teacher_id):
+        cursor = self.get_cursor()
+        cursor.execute("UPDATE teachers SET display_name = ?, username = ?, is_admin = ? WHERE teacher_id =?", (display_name, username, is_admin, teacher_id))
+        cursor.connection.commit()
+    
     def delete_user(self, teacher_id):
         cursor = self.get_cursor()
         cursor.execute("DELETE FROM teachers WHERE teacher_id = ?", (teacher_id,))
-        return cursor.excecute()        
+        return cursor.connection.commit()        
