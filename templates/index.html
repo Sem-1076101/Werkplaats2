@@ -25,55 +25,56 @@
     <a href="/register">Registreren</a>
     {% endif %}
 
-    <form method="post" action="/save-form">
-        <div>
-            <input type="text" name="title" />
-        </div>
-        <div>
-            <input type="text" name="note_source" />
-        </div>
-        <div>
-            <label for="category_id">Is admin?</label>
-                <select name="category_id" id="category_id" multiple>
-                    {% for category in categories %}
-                    <option value="{{ category.category_id}}">{{ category.omschrijving }}</option>
-                    {% endfor %}
-                    <option value="0">Ja</option>
-                </select>
-
-        </div>
-        <div>
-            <fieldset>
-                <legend>category_id</legend>
-                <div>
-                    <input type="checkbox" id="Nederlands" name="Categorie" value="Nederlands" />
-                    <label for="Nederlands">Nederlands</label>
-                    <input type="checkbox" id="Engels" name="Categorie" value="Engels" />
-                    <label for="Engels">Engels</label>
-                    <input type="checkbox" id="Frans" name="Categorie" value="Frans" />
-                    <label for="Frans">Frans</label>
-                    <input type="checkbox" id="Duits" name="Categorie" value="Duits" />
-                    <label for="Duits">Duits</label>
-                    <input type="checkbox" id="Wiskunde" name="Categorie" value="Wiskunde" />
-                    <label for="Wiskunde">Wiskunde</label>
-                </div>
-                <div>
-                    <input type="checkbox" id="Muziek" name="Categorie" value="Muziek" />
-                    <label for="Muziek">Muziek</label>
-                    <input type="checkbox" id="Aardrijskunde" name="Categorie" value="Aardrijskunde" />
-                    <label for="Aardrijskunde">Aardrijskunde</label>
-                    <input type="checkbox" id="Biologie" name="Categorie" value="Biologie" />
-                    <label for="Biologie">Biologie</label>
-                </div>
-            </fieldset>
+    <div>
+        <h2>Nieuw notitie</h2>
+        <form method="post" action="/save-note">
             <div>
-                <input type="text" name="note" />
+                <label for="title">Titel:</label>
+                <input type="text" name="title" required>
             </div>
             <div>
-                <input type="submit" name="save" />
+                <label for="note_source">Bron:</label>
+                <input type="text" name="note_source" required>
+            </div>
+            <div>
+                <label for="is_public">Openbaar:</label>
+                <input type="checkbox" name="is_public" value="1">
+            </div>
+            <div>
+                <label for="category_id">Categorie:</label>
+                <select name="category_id" id="category_id" required>
+                    {% for category in categories %}
+                    <option value="{{ category.category_id }}">{{ category.omschrijving }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <label for="note">Notitie:</label>
+                <textarea name="note" rows="4" required></textarea>
+            </div>
+            <div>
+                <input type="submit" value="Opslaan">
                 <input type="reset" value="Reset">
             </div>
-            <div>
+        </form>
+    </div>
+
+    <div>
+        <h2>Notities:</h2>
+        <ul>
+            {% for note in notes %}
+            <li>
+                <strong>Titel:</strong> {{ note.title }}<br>
+                <strong>Bron:</strong> {{ note.note_source }}<br>
+                <strong>Openbaar:</strong> {{ note.is_public }}<br>
+                <strong>Leraren ID:</strong> {{ note.teacher_id }}<br>
+                <strong>Notitie:</strong> {{ note.note }}<br>
+                <strong>Gemaakt op:</strong> {{ note.date_created }}<br>
+                <hr>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
 
     </form>
 </body>

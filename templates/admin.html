@@ -9,16 +9,19 @@
 </head>
 
 <body>
-    <h1>Admin pagina</h1>
+   
     <a href="/logout">Uitloggen</a>
     <div class="container">
         <div class="inner-container">
-            <div class="button-container">
-                <div>
-                    <a href="/nieuw_account">Nieuwe docent toevoegen</a>
-                </div>
-            </div>
             <div class="teacher-info-container">
+                <h1>Admin pagina</h1>
+                <div class="flash_message">
+                    {% for message in get_flashed_messages() %}
+                    <div class="inner_flash_message">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                </div>
                 <div class="namen_columns">
                     <div>
                         <p>Leraar ID</p>
@@ -28,6 +31,9 @@
                     </div>
                     <div>
                         <p>Admin, 0 is Ja</p>
+                    </div>
+                    <div>
+                        <a class="docent-toevoeg-button" href="/nieuw_account">Nieuwe docent toevoegen</a>
                     </div>
                 </div>
                 <div class="container-flex">
@@ -42,18 +48,21 @@
                         <div>
                             <p>{{ teacher.is_admin }}</p>
                         </div>
-                    </div>
-                    <div class="">
-                        <div>
-                            <a href="">Aanpassen</a>
+                        <div class="update-buttons">
+                            <div>
+                                <a href="/docent_aanpas/{{teacher.teacher_id}}">Aanpassen</a>
+                            </div>
+                            <div>
+                                <a href="/verwijder_docent/{{teacher.teacher_id}}">Verwijderen</a>
+                            </div>
                         </div>
-                        <div><a href="">Verwijderen</a></div>
                     </div>
                     {% endfor %}
                 </div>
             </div>
         </div>
     </div>
-</body>
 
+    
+</body>
 </html>
