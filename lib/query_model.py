@@ -68,3 +68,11 @@ class UserModel:
         cursor = self.get_cursor()
         cursor.execute("SELECT note_id, title, note_source, is_public, teacher_id, note, date_created FROM notes")
         return cursor.fetchall()
+    
+    def create_category(self, description):
+        cursor = self.get_cursor()
+        cursor.execute(
+            "INSERT INTO categories (omschrijving, date_created) VALUES (?, datetime('now'))",
+            (description,)
+        )
+        cursor.connection.commit()

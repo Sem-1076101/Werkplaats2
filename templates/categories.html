@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>categories</title>
+    <link rel="stylesheet" href="/static/css/categories.css">
+</head>
+
+<body>
+    {% if session.username %}
+    <div class="header">
+        <a href="#default" class="logo">TEST-CORRECT</a>
+        <div class="header-right">
+            <a href="/index">Notities</a>
+            <a class="active" href="#categories">Categorieën</a>
+            <a href="/logout">Uitloggen</a>
+        </div>
+    </div>
+
+
+    <p>Hallo, {{ session.username}}! U bent ingelogd</p>
+    {% else %}
+    <a href="/">Inloggen</a> <br>
+    <a href="/register">Registreren</a>
+    {% endif %}
+
+    <div>
+        <h2>nieuw categorie</h2>
+        <form method="post" action="/save-category">
+            <div>
+                <label for="description">Omschrijving:</label>
+                <input type="text" name="description" required>
+            </div>
+            <div>
+                <input type="submit" value="opslaan">
+                <input type="reset" value="Reset">
+            </div>
+            <h2>Categorieën</h2>   
+
+            <ul>
+                {% for category in categories %}
+                <li>
+                    <strong>Omschrijving:</strong> {{ category.omschrijving }}<br>
+                    <strong>Gemaakt op:</strong> {{ category.date_created }}<br>
+                    <hr>
+                </li>
+                {% endfor %}
+            </ul>
+        </form>
+    </div>
+</body>
+
+</html>

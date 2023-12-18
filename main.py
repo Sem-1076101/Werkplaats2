@@ -90,6 +90,19 @@ def save_note():
 
     return redirect(url_for('welcome'))
 
+@app.route('/categories')
+def categories():
+    model = UserModel(DATABASEFILE)
+    get_categories = model.get_all_categories()
+    return render_template('categories.html', categories=get_categories)
+
+@app.route('/save-category', methods=['POST'])
+def save_category():
+    description = request.form['description']
+    model = UserModel(DATABASEFILE)
+    model.create_category(description=description)
+    return redirect(url_for('categories'))
+
 @app.route('/admin')
 def admin():
     username = session.get('username')
