@@ -56,11 +56,11 @@ class UserModel:
         cursor.execute("SELECT * FROM categories")
         return cursor.fetchall() 
     
-    def create_note(self, title, note_source, is_public, category_id, note):
+    def create_note(self, title, note_source, is_public, teacher_id, category_id, note):
         cursor = self.get_cursor()
         cursor.execute(
-            "INSERT INTO notes (title, note_source, is_public, category_id, note, date_created) VALUES (?, ?, ?, ?, ?, datetime('now'))",
-            (title, note_source, is_public, category_id, note)
+            "INSERT INTO notes (title, note_source, is_public, teacher_id, category_id, note, date_created) VALUES (?, ?, ?, ?, ?, ?, datetime('now'))",
+            (title, note_source, is_public, teacher_id, category_id, note)
         )
         cursor.connection.commit()
     
@@ -71,8 +71,5 @@ class UserModel:
     
     def create_category(self, description):
         cursor = self.get_cursor()
-        cursor.execute(
-            "INSERT INTO categories (omschrijving, date_created) VALUES (?, datetime('now'))",
-            (description,)
-        )
+        cursor.execute("INSERT INTO categories (omschrijving, date_created) VALUES (?, datetime('now'))",(description,))
         cursor.connection.commit()

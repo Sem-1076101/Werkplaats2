@@ -82,11 +82,12 @@ def save_note():
     title = request.form['title']
     note_source = request.form['note_source']
     is_public = request.form.get('is_public', 0) 
+    teacher_id = session.get('teacher_id')
     category_id = request.form.get('category_id', 1) 
     note_content = request.form['note']
 
     model = UserModel(DATABASEFILE)
-    model.create_note(title=title, note_source=note_source, is_public=is_public, category_id=category_id, note=note_content)
+    model.create_note(title=title, note_source=note_source, is_public=is_public, teacher_id=teacher_id, category_id=category_id, note=note_content)
 
     return redirect(url_for('welcome'))
 
