@@ -13,18 +13,13 @@
     <a href="/logout">Uitloggen</a>
     <div class="container">
         <div class="inner-container">
-            <div class="teacher-info-container">
-                <h1>Admin pagina</h1>
+            <div class="h1-btn-div">
+                <h1>Admin pagina</h1>                
                 <div>
                     <a class="docent-toevoeg-button" href="/nieuw_account">Nieuwe docent toevoegen</a>
                 </div>
-                <div class="flash_message">
-                    {% for message in get_flashed_messages() %}
-                    <div class="inner_flash_message">
-                        {{ message }}
-                    </div>
-                    {% endfor %}
-                </div>
+            </div>
+            <div class="teacher-info-container">
                 <div class="namen_columns">
                     <div>
                         <p>Leraar ID</p>
@@ -35,7 +30,13 @@
                     <div>
                         <p>Admin?</p>
                     </div>
-
+                </div>
+                <div class="flash_message">
+                    {% for message in get_flashed_messages() %}
+                    <div class="inner_flash_message">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
                 </div>
                 <div class="container-flex">
                     {% for teacher in teachers %}

@@ -1,6 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz@6..12&display=swap');
 * {
-    font-family: 'Rubik', sans-serif;
+    font-family: 'Nunito Sans', sans-serif;
 }
 
 .container {
@@ -12,7 +12,16 @@
 .inner-container {
     justify-content: center;
     box-shadow: 0 5px 8px rgba(0, 0, 0, 0.3);
-    padding: 25px;
+}
+
+.h1-btn-div {
+    background-color: #004df5;
+    padding: 15px;
+    justify-content: center;
+    margin: auto;
+    text-align: center;
+    color: #fff;
+    margin-bottom: 25px
 }
 
 .docent-toevoeg-button  {
@@ -22,6 +31,7 @@
     padding: 15px;
     margin: auto;
     background-color: red;
+    margin-bottom: 10px;
 }
 
 .button-container a {
@@ -63,7 +73,13 @@
     text-align: right;
 }
 
+.box4 {
+    margin-top: 20px;
+
+}
+
 .box5 {
+    margin-top: 20px;
     margin-bottom: 10px;
     text-align: right;
     grid-column: 3;
@@ -91,5 +107,5 @@
 
 .box5 a:hover {
     transition-duration: .5s;
-    background: black;
+    background: rgba(255, 0, 0, 0.708);
 }
