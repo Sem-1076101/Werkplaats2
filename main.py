@@ -20,27 +20,28 @@ def register_check():
         display_name = request.form['display_name']
         # .get is voor als je een specifieke waarde wilt ophalen, 
         # als die waarde niet bestaat word er ingevuld wat tussen de () staat.
-        is_admin = request.form.get('is_admin', 1)
+        form_is_admin = request.form.get('is_admin', 1)
         model = UserModel(DATABASEFILE)
 
 
-        session_is_admin = session.get('is_admin')
+        is_admin = session.get('is_admin')
         # check of gebruiker niet al bestaat
         existing_user = model.get_user_by_username(username)
         if existing_user:
             # stuur de gebruiker naar de error pagina als hij iets vindt
-            flash('Er bestaat al een account met deze gebruikersnaam!')
-            if session_is_admin == 1: 
-                return redirect(url_for('register'))
-            else:
+            if session['is_admin'] == 0: 
+                flash('Er bestaat al een account met deze gebruikersnaam!')
                 return redirect(url_for('admin'))
+            elif is_admin == 1:
+                flash('Er bestaat al een account met deze gebruikersnaam!')
+                return redirect(url_for('login'))
             
-        model.create_user(display_name = display_name, username = username, password = password, is_admin = is_admin)
+        model.create_user(display_name = display_name, username = username, password = password, is_admin = form_is_admin)
             
-        if session_is_admin == 1: 
-            return redirect(url_for('login'))
-        else:
+        if session['is_admin']: 
             return redirect(url_for('admin'))
+        else:
+            return redirect(url_for('login'))
             
         
 @app.route('/')
@@ -54,7 +55,11 @@ def login_check():
         
         user_model = UserModel(DATABASEFILE)
         login_check = user_model.check_login(username, password)
+        
+        user = user_model.get_user_by_username(username)
         if login_check:
+            session['teacher_id'] = user['teacher_id']
+            session['is_admin'] = user['is_admin']
             session['username'] = username
             return redirect(url_for('welcome'))
         else:
@@ -66,6 +71,7 @@ def login_check():
 def welcome():
     username = session.get('username')
     is_admin = session.get('is_admin')
+    teacher_id = session.get('teacher_id')
 
     if username == 'admin' or is_admin == 0:
         return redirect(url_for('admin'))
@@ -109,7 +115,7 @@ def admin():
     username = session.get('username')
     is_admin = session.get('is_admin')
     teacher_id = session.get('teacher_id')
-    if not username:
+    if not username or is_admin == 1:
         flash('U moet inloggen om deze pagina te bezoeken.')
         return redirect(url_for('login'))
     else:
