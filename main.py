@@ -108,6 +108,7 @@ def save_category():
 def admin():
     username = session.get('username')
     is_admin = session.get('is_admin')
+    teacher_id = session.get('teacher_id')
     if not username:
         flash('U moet inloggen om deze pagina te bezoeken.')
         return redirect(url_for('login'))

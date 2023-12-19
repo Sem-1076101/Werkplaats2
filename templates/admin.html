@@ -9,19 +9,17 @@
 </head>
 
 <body>
-   
+
     <a href="/logout">Uitloggen</a>
     <div class="container">
         <div class="inner-container">
-            <div class="teacher-info-container">
-                <h1>Admin pagina</h1>
-                <div class="flash_message">
-                    {% for message in get_flashed_messages() %}
-                    <div class="inner_flash_message">
-                        {{ message }}
-                    </div>
-                    {% endfor %}
+            <div class="h1-btn-div">
+                <h1>Admin pagina</h1>                
+                <div>
+                    <a class="docent-toevoeg-button" href="/nieuw_account">Nieuwe docent toevoegen</a>
                 </div>
+            </div>
+            <div class="teacher-info-container">
                 <div class="namen_columns">
                     <div>
                         <p>Leraar ID</p>
@@ -30,39 +28,49 @@
                         <p>Volledige naam</p>
                     </div>
                     <div>
-                        <p>Admin, 0 is Ja</p>
+                        <p>Admin?</p>
                     </div>
-                    <div>
-                        <a class="docent-toevoeg-button" href="/nieuw_account">Nieuwe docent toevoegen</a>
+                </div>
+                <div class="flash_message">
+                    {% for message in get_flashed_messages() %}
+                    <div class="inner_flash_message">
+                        {{ message }}
                     </div>
+                    {% endfor %}
                 </div>
                 <div class="container-flex">
                     {% for teacher in teachers %}
                     <div class="teacher">
-                        <div>
+                        <div class="box1">
                             <p>{{ teacher.teacher_id }}</p>
                         </div>
-                        <div>
+                        <div class="box2">
                             <p>{{ teacher.display_name }}</p>
                         </div>
-                        <div>
-                            <p>{{ teacher.is_admin }}</p>
+                        <div class="box3">
+                            {% if teacher.is_admin == 0 %}
+                            <p>Ja</p>
+                            {% else %}
+                            <p>Nee</p>
+                            {% endif %}
                         </div>
-                        <div class="update-buttons">
-                            <div>
-                                <a href="/docent_aanpas/{{teacher.teacher_id}}">Aanpassen</a>
-                            </div>
-                            <div>
-                                <a href="/verwijder_docent/{{teacher.teacher_id}}">Verwijderen</a>
-                            </div>
+
+                        <div class="box4">
+                            <a href="/docent_aanpas/{{teacher.teacher_id}}">Aanpassen</a>
                         </div>
+                        <div class="box5">
+                            <a href="/verwijder_docent/{{teacher.teacher_id}}">Verwijderen</a>
+                        </div>
+
                     </div>
+
                     {% endfor %}
                 </div>
             </div>
         </div>
     </div>
 
-    
+
 </body>
+
 </html>
