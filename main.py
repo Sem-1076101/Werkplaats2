@@ -43,7 +43,7 @@ def register_check():
         else:
             return redirect(url_for('login'))
             
-        
+
 @app.route('/')
 def login():
     return render_template('login.html')
@@ -126,8 +126,35 @@ def admin():
 
 @app.route('/nieuw_account')
 def nieuw_account():
-    # if is_admin == 
-    return render_template('nieuwe_docent.html')   
+    if session['is_admin'] == 0:
+        return render_template('nieuwe_docent.html')   
+    else:
+        flash('Je hebt niet de rechten om deze pagina te bezoeken.')
+        return redirect(url_for('login'))
+
+
+
+@app.route('/register_check_admin', methods=['POST'])
+def register_check_admin():
+        username = request.form['username']
+        password = request.form['password']
+        display_name = request.form['display_name']
+        # .get is voor als je een specifieke waarde wilt ophalen, 
+        # als die waarde niet bestaat word er ingevuld wat tussen de () staat.
+        form_is_admin = request.form.get('is_admin', 1)
+        model = UserModel(DATABASEFILE)
+
+        # check of gebruiker niet al bestaat
+        existing_user = model.get_user_by_username(username)
+        if existing_user:
+            # stuur de gebruiker naar de error pagina als hij iets vindt
+            flash('Er bestaat al een account met deze gebruikersnaam!')
+            return redirect(url_for('admin'))
+            
+        model.create_user(display_name = display_name, username = username, password = password, is_admin = form_is_admin)
+            
+        return redirect(url_for('admin'))
+        
 
 
 @app.route('/docent_aanpas/<int:teacher_id>')
