@@ -13,7 +13,7 @@
             <div class="h2_edit">
                 <h2>Registreren</h2>
             </div>
-            <form action="/register_check" method="POST" class="register_form">
+            <form action="/register_check_admin" method="POST" class="register_form">
                 <label for="username">Gebruikersnaam:</label>
                 <input type="text" name="username" id="username" required>
 
@@ -24,7 +24,7 @@
                 <input type="text" name="display_name" id="display_name" required>
 
                 <label for="is_admin">Is admin?</label>
-                <select name="is_admin" id="is_admin" multiple>
+                <select name="is_admin" id="is_admin">
                     <option value="1">Nee</option>
                     <option value="0">Ja</option>
                 </select>
