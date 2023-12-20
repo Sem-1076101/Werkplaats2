@@ -151,10 +151,11 @@ def register_check_admin():
             flash('Er bestaat al een account met deze gebruikersnaam!')
             return redirect(url_for('admin'))
             
-        model.create_user(display_name = display_name, username = username, password = password, is_admin = form_is_admin)
+        create_user = model.create_user(display_name = display_name, username = username, password = password, is_admin = form_is_admin)
+        if create_user:
+            flash('Gebruiker aangemaakt')
+            return redirect(url_for('admin'))
             
-        return redirect(url_for('admin'))
-        
 
 
 @app.route('/docent_aanpas/<int:teacher_id>')
