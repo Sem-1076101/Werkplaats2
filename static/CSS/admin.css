@@ -5,7 +5,7 @@
 
 .container {
     width: 850px;
-    margin-top: 150px;
+    margin-top: 300px;
     margin: auto;
 }
 
@@ -23,6 +23,10 @@
     text-align: center;
     color: #fff;
     margin-bottom: 25px
+}
+
+.h1-btn-div div {
+    margin-top: 35px
 }
 
 .docent-toevoeg-button  {
