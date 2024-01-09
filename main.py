@@ -68,18 +68,18 @@ def login_check():
              
 
 @app.route('/index')
-def welcome():
+def index():
     username = session.get('username')
     is_admin = session.get('is_admin')
     teacher_id = session.get('teacher_id')
 
-    if username == 'admin' or is_admin == 0:
-        return redirect(url_for('admin'))
-    else:
-        model = UserModel(DATABASEFILE)
-        get_categories = model.get_all_categories()
-        get_notes = model.get_all_notes()
-        return render_template('index.html', categories=get_categories, notes=get_notes)
+    # if username == 'admin' or is_admin == 0:
+    #     return redirect(url_for('admin'))
+    # else:
+    model = UserModel(DATABASEFILE)
+    get_categories = model.get_all_categories()
+    get_notes = model.get_all_notes()
+    return render_template('index.html', categories=get_categories, notes=get_notes)
     
 
 
@@ -156,7 +156,16 @@ def register_check_admin():
             flash('Gebruiker aangemaakt')
             return redirect(url_for('admin'))
             
+@app.route('/notities_admin')
+def notities_admin():
+    model = UserModel(DATABASEFILE)
+    get_notes = model.get_all_notes()
 
+    if get_notes:
+        return render_template('admin_notities.html', note = get_notes)
+    else :
+        flash('Er is iets fout gegaan met het ophalen van de notities.')
+        return redirect(url_for('admin'))
 
 @app.route('/docent_aanpas/<int:teacher_id>')
 def docent_aanpas(teacher_id):

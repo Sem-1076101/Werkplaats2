@@ -9,23 +9,23 @@
 </head>
 
 <body>
-    {% if session.username %}
+
     <div class="header">
         <a href="#default" class="logo">TEST-CORRECT</a>
         <div class="header-right">
-            <a class="active" href="#notities">Notities</a>
+            <a class="active" href="/index">Notities</a>
             <a href="/categories">Categorieën</a>
+            {% if session.is_admin == 0 %}
+            <a href="/admin">Admin</a>
+            {% endif %}
             <a href="/logout">Uitloggen</a>
         </div>
     </div>
+    {% if session.is_admin == 1%}
 
 
     <p>Hallo, {{ session.username}}! U bent ingelogd</p>
-    {% else %}
-    <a href="/">Inloggen</a> <br>
-    <a href="/register">Registreren</a>
-    {% endif %}
-
+    
     <div>
         <h2>Nieuw notitie</h2>
         <form method="post" action="/save-note">
@@ -77,8 +77,15 @@
             {% endfor %}
         </ul>
     </div>
+    {% elif session.is_admin == 0 %}
 
-    </form>
+    <p>dit werkt {{session.username}}</p>
+
+    {% else %}
+
+    <a href="/">Inloggen</a> <br>
+    <a href="/register">Registreren</a>
+    {% endif %}
 </body>
 
 </html>

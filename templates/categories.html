@@ -5,26 +5,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>categories</title>
-    <link rel="stylesheet" href="/static/css/categories.css">
+    <link rel="stylesheet" href="/static/css/header.css">
 </head>
 
 <body>
-    {% if session.username %}
     <div class="header">
         <a href="#default" class="logo">TEST-CORRECT</a>
         <div class="header-right">
             <a href="/index">Notities</a>
-            <a class="active" href="#categories">Categorieën</a>
+            <a class="active" href="/categories">Categorieën</a>
+            {% if session.is_admin == 0 %}
+            <a href="/admin">Admin</a>
+            {% endif %}
             <a href="/logout">Uitloggen</a>
         </div>
     </div>
-
+    {% if session.username %}
 
     <p>Hallo, {{ session.username}}! U bent ingelogd</p>
-    {% else %}
-    <a href="/">Inloggen</a> <br>
-    <a href="/register">Registreren</a>
-    {% endif %}
+   
 
     <div>
         <h2>nieuw categorie</h2>
@@ -50,6 +49,10 @@
             </ul>
         </form>
     </div>
+    {% else %}
+    <a href="/">Inloggen</a> <br>
+    <a href="/register">Registreren</a>
+    {% endif %}
 </body>
 
 </html>
