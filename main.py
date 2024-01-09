@@ -9,6 +9,9 @@ app.secret_key = 'mysecretkey'
 DATABASEFILE = 'databases/testgpt.db'
 
 
+is_admin = 0
+is_not_admin = 1
+
 @app.route('/register')
 def register():
     return render_template('register.html')
@@ -61,7 +64,7 @@ def login_check():
             session['teacher_id'] = user['teacher_id']
             session['is_admin'] = user['is_admin']
             session['username'] = username
-            return redirect(url_for('welcome'))
+            return redirect(url_for('index'))
         else:
             flash('Gebruikersnaam of wachtwoord onjuist.')
             return redirect(url_for('login'))
@@ -196,6 +199,17 @@ def verwerk_aanpas_docent():
         flash('Er is iets fout gegaan met het aanpassen.')
         return redirect(url_for('admin'))
     
+@app.route('/verwijder_categorie/<int:category_id>')
+def verwijder_categorie(category_id):
+    model = UserModel(DATABASEFILE)
+    delete_category = model.delete_category(category_id)
+    if not delete_category:
+        flash('Categorie is verwijderd.')
+    else:
+        flash('Er is iets fout gegaan met het verwijderen')
+        return redirect(url_for('categories'))
+    
+    return redirect(url_for('categories'))
 
 @app.route('/verwijder_docent/<int:teacher_id>')
 def verwijder_docent(teacher_id):

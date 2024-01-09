@@ -41,8 +41,9 @@
             <ul>
                 {% for category in categories %}
                 <li>
-                    <strong>Omschrijving:</strong> {{ category.omschrijving }}<br>
-                    <strong>Gemaakt op:</strong> {{ category.date_created }}<br>
+                    <strong>Omschrijving:</strong> {{ category.omschrijving }}<br> 
+                    <strong>Gemaakt op:</strong> {{ category.date_created }}<br> {% if session.is_admin == 0%} <a href="/verwijder_categorie/{{category.category_id}}">Verwijderen</a> {% endif %}
+ 
                     <hr>
                 </li>
                 {% endfor %}

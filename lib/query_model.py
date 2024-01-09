@@ -74,6 +74,12 @@ class UserModel:
         cursor.execute("INSERT INTO categories (omschrijving, date_created) VALUES (?, datetime('now'))",(description,))
         cursor.connection.commit()
 
+    def delete_category(self, category_id):
+        cursor = self.get_cursor()
+        cursor.execute("DELETE FROM categories WHERE category_id = ?", (category_id,))
+        cursor.connection.commit()
+
+
     def update_user(self, teacher_id, display_name, username, is_admin):
         cursor = self.get_cursor()
         cursor.execute("UPDATE teachers SET display_name=?, username=?, is_admin=? WHERE teacher_id=?", (display_name, username, is_admin, teacher_id))
