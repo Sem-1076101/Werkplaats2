@@ -113,7 +113,7 @@ def save_category():
     model.create_category(description=description)
     return redirect(url_for('categories'))
 
-@app.route('/admin')
+@app.route('/admin') 
 def admin():
     username = session.get('username')
     is_admin = session.get('is_admin')
@@ -154,10 +154,10 @@ def register_check_admin():
             flash('Er bestaat al een account met deze gebruikersnaam!')
             return redirect(url_for('admin'))
             
-        create_user = model.create_user(display_name = display_name, username = username, password = password, is_admin = form_is_admin)
-        if create_user:
-            flash('Gebruiker aangemaakt')
-            return redirect(url_for('admin'))
+        model.create_user(display_name = display_name, username = username, password = password, is_admin = form_is_admin)
+        
+        flash('Gebruiker aangemaakt')
+        return redirect(url_for('admin'))
             
 @app.route('/notities_admin')
 def notities_admin():

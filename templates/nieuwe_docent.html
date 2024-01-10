@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Docent toevoegen</title>
     <link rel="stylesheet" href="/static/CSS/header.css">
+    <link rel="stylesheet" href="/static/CSS/forms.css">
 </head>
 
 <body>
@@ -19,12 +20,12 @@
         </div>
     </div>
 
-    <div class="container-register">
+    <div class="container">
         <div class="inner-container">
             <div class="h2_edit">
                 <h2>Registreren</h2>
             </div>
-            <form action="/register_check_admin" method="POST" class="register_form">
+            <form action="/register_check_admin" method="POST" class="new_teacher_form">
                 <label for="username">Gebruikersnaam:</label>
                 <input type="text" name="username" id="username" required>
 
@@ -40,16 +41,9 @@
                     <option value="0">Ja</option>
                 </select>
 
-                <button type="submit" class="register_button" name="button_submit_login">Registreren</button>
+                <button type="submit" class="new_teacher_form_btn">Registreren</button>
+                <a href="/admin">Terug</a>
             </form>
-
-            <div class="flash_message">
-                {% for message in get_flashed_messages() %}
-                <div class="inner_flash_message">
-                    {{ message }}
-                </div>
-                {% endfor %}
-            </div>
         </div>
     </div>
 </body>
