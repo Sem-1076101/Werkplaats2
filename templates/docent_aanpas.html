@@ -4,12 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Docent aanpassen</title>
+    <link rel="stylesheet" href="/static/CSS/header.css">
+    <link rel="stylesheet" href="/static/CSS/forms.css">
 </head>
 <body>
+    <div class="header">
+        <a href="#default" class="logo">TEST-CORRECT</a>
+        <div class="header-right">
+            <a href="/index">Notities</a>
+            <a href="/categories">Categorieën</a>
+            <a href="/admin" class="active">Admin</a>
+            <a href="/logout">Uitloggen</a>
+        </div>
+    </div>
+    
     <div class="container">
         <div class="inner-container">
-            <h1>Docent aanpassen met id nummer {{teacher.teacher_id}}</h1>
-            <form action="/verwerk_aanpas_docent" method="post">
+            <div class="h2_edit">
+            <h2>Docent aanpassen met id nummer {{teacher.teacher_id}}</h2>
+            </div>
+            <form action="/verwerk_aanpas_docent" method="post" class="update_form">
                 <label for="teacher_id">Leraar id:</label>
                 <input type="text" name="teacher_id" value="{{teacher.teacher_id}}" readonly>
 
@@ -32,7 +46,7 @@
                     {% endif %}
                 </select>
 
-                <button type="submit">Aanpassing verzenden</button>
+                <button class="update_form_btn" type="submit">Aanpassing verzenden</button>
                 <a href="/admin">Terug</a>
             </form>
         </div>

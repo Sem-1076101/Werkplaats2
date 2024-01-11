@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz@6..12&display=swap');
+* {
+    font-family: 'Nunito Sans', sans-serif;
+}
+
+
+.container{
+    width: 750px;
+    margin: auto;
+    margin-top: 50px;
+}
+
+.inner-container {
+    justify-content: center;
+    text-align: center;
+    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.3);
+    padding-bottom: 25px;
+}
+
+.h2_edit {
+    background-color: #43cd5e;
+    text-align: center;
+    width: 750px !important;
+    padding-top: 12.5px;
+    padding-bottom: 12.5px;
+    color: #fff;
+}
+
+.update_form, .new_teacher_form{
+    max-width: 500px;
+    margin: 2rem auto;
+    padding: 2rem;
+}
+
+.update_form a, .new_teacher_form a {
+    transition-duration: 0.5s;
+    padding: 15px;
+    font-size: 15px;
+    color: #fff;
+    text-decoration: none;
+    background: #43cd5e;
+}
+
+.update_form a:hover, .new_teacher_form a:hover {
+    transition: 0.5s;
+    background: #0000ee;
+}
+
+.update_form input, .new_teacher_form input {
+    border-radius: 8px; /* Maak de hoeken van het formulier iets meer afgerond */
+    width: 100%;
+    padding: 5px;
+    text-align: center;
+    border: 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    margin-top: 10px; 
+    margin-bottom: 10px
+}
+
+
+.update_form_btn, .new_teacher_form_btn {
+    transition-duration: 0.5s;
+    font-size: 15px;
+    margin-top: 10px;
+    padding: 15px;
+    background: black;
+    color: #fff;
+    cursor: pointer;
+    border: 0;
+}
+  
+.update_form_btn:hover, .new_teacher_form_btn:hover {
+    background-color: #000;
+    transition-duration: 0.5s;
+    cursor: pointer;
+}
+

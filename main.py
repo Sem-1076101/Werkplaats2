@@ -9,6 +9,9 @@ app.secret_key = 'mysecretkey'
 DATABASEFILE = 'databases/testgpt.db'
 
 
+is_admin = 0
+is_not_admin = 1
+
 @app.route('/register')
 def register():
     return render_template('register.html')
@@ -61,25 +64,25 @@ def login_check():
             session['teacher_id'] = user['teacher_id']
             session['is_admin'] = user['is_admin']
             session['username'] = username
-            return redirect(url_for('welcome'))
+            return redirect(url_for('index'))
         else:
             flash('Gebruikersnaam of wachtwoord onjuist.')
             return redirect(url_for('login'))
              
 
 @app.route('/index')
-def welcome():
+def index():
     username = session.get('username')
     is_admin = session.get('is_admin')
     teacher_id = session.get('teacher_id')
 
-    if username == 'admin' or is_admin == 0:
-        return redirect(url_for('admin'))
-    else:
-        model = UserModel(DATABASEFILE)
-        get_categories = model.get_all_categories()
-        get_notes = model.get_all_notes()
-        return render_template('index.html', categories=get_categories, notes=get_notes)
+    # if username == 'admin' or is_admin == 0:
+    #     return redirect(url_for('admin'))
+    # else:
+    model = UserModel(DATABASEFILE)
+    get_categories = model.get_all_categories()
+    get_notes = model.get_all_notes()
+    return render_template('index.html', categories=get_categories, notes=get_notes)
     
 
 
@@ -95,7 +98,7 @@ def save_note():
     model = UserModel(DATABASEFILE)
     model.create_note(title=title, note_source=note_source, is_public=is_public, teacher_id=teacher_id, category_id=category_id, note=note_content)
 
-    return redirect(url_for('welcome'))
+    return redirect(url_for('index'))
 
 @app.route('/categories')
 def categories():
@@ -110,12 +113,12 @@ def save_category():
     model.create_category(description=description)
     return redirect(url_for('categories'))
 
-@app.route('/admin')
+@app.route('/admin') 
 def admin():
     username = session.get('username')
     is_admin = session.get('is_admin')
     teacher_id = session.get('teacher_id')
-    if not username or is_admin == 1:
+    if is_admin == 1:
         flash('U moet inloggen om deze pagina te bezoeken.')
         return redirect(url_for('login'))
     else:
@@ -152,10 +155,20 @@ def register_check_admin():
             return redirect(url_for('admin'))
             
         model.create_user(display_name = display_name, username = username, password = password, is_admin = form_is_admin)
-            
-        return redirect(url_for('admin'))
         
+        flash('Gebruiker aangemaakt')
+        return redirect(url_for('admin'))
+            
+@app.route('/notities_admin')
+def notities_admin():
+    model = UserModel(DATABASEFILE)
+    get_notes = model.get_all_notes()
 
+    if get_notes:
+        return render_template('admin_notities.html', note = get_notes)
+    else :
+        flash('Er is iets fout gegaan met het ophalen van de notities.')
+        return redirect(url_for('admin'))
 
 @app.route('/docent_aanpas/<int:teacher_id>')
 def docent_aanpas(teacher_id):
@@ -186,6 +199,45 @@ def verwerk_aanpas_docent():
         flash('Er is iets fout gegaan met het aanpassen.')
         return redirect(url_for('admin'))
     
+@app.route('/categorie_aanpas/<int:category_id>')
+def categorie_aanpas(category_id):
+    model = UserModel(DATABASEFILE)
+    get_categories = model.get_categories_by_id(category_id)
+
+    if get_categories:
+        return render_template('categorie_aanpas.html', categories = get_categories)
+    else: 
+        flash('Er is iets fout gegaan met het ophalen van de categorie')
+        return redirect(url_for('admin'))   
+
+
+@app.route('/verwerk_aanpas_categorie', methods=['POST'])
+def verwerk_aanpas_categorie():
+    category_id = request.form['category_id']
+    omschrijving = request.form['omschrijving']
+
+    model = UserModel(DATABASEFILE)
+    update_teacher = model.update_category(category_id = category_id, omschrijving = omschrijving)
+
+    if not update_teacher:
+        flash('Docent succesvol aangepast!')
+        return redirect(url_for('categories'))
+    else:
+        flash('Er is iets fout gegaan met het aanpassen.')
+        return redirect(url_for('categories'))
+
+    
+@app.route('/verwijder_categorie/<int:category_id>')
+def verwijder_categorie(category_id):
+    model = UserModel(DATABASEFILE)
+    delete_category = model.delete_category(category_id)
+    if not delete_category:
+        flash('Categorie is verwijderd.')
+    else:
+        flash('Er is iets fout gegaan met het verwijderen')
+        return redirect(url_for('categories'))
+    
+    return redirect(url_for('categories'))
 
 @app.route('/verwijder_docent/<int:teacher_id>')
 def verwijder_docent(teacher_id):

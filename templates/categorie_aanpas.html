@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docent aanpassen</title>
+    <link rel="stylesheet" href="/static/CSS/header.css">
+    <link rel="stylesheet" href="/static/CSS/forms.css">
+</head>
+<body>
+    <div class="header">
+        <a href="#default" class="logo">TEST-CORRECT</a>
+        <div class="header-right">
+            <a href="/index">Notities</a>
+            <a href="/categories" class="active">Categorieën</a>
+            <a href="/admin">Admin</a>
+            <a href="/logout">Uitloggen</a>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="inner-container">
+            <div class="h2_edit">
+            <h2>Categorie {{categories.omschrijving}} aanpassen</h2>
+            </div>
+            <form action="/verwerk_aanpas_categorie" method="post" class="update_form">
+                <label for="category_id">Categorie id {{categories.category_id}}</label>
+                <input type="text" value="{{categories.category_id}}" name="category_id" readonly>
+
+                <label for="display_name">Omschrijving:</label>
+                <input type="text" name="omschrijving" value="{{categories.omschrijving}}" required> 
+
+                <p>Datum van aanmaak: {{categories.date_created}}</p>
+                
+                <button class="update_form_btn" type="submit">Aanpassing verzenden</button>
+                <a href="/categories">Terug</a>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

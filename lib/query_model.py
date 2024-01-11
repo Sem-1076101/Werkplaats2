@@ -56,6 +56,11 @@ class UserModel:
         cursor.execute("SELECT * FROM categories")
         return cursor.fetchall() 
     
+    def get_categories_by_id(self, category_id):
+        cursor = self.get_cursor()
+        cursor.execute("SELECT * FROM categories WHERE category_id =?", (category_id,))
+        return cursor.fetchone()
+    
     def create_note(self, title, note_source, is_public, teacher_id, category_id, note):
         cursor = self.get_cursor()
         cursor.execute(
@@ -73,6 +78,17 @@ class UserModel:
         cursor = self.get_cursor()
         cursor.execute("INSERT INTO categories (omschrijving, date_created) VALUES (?, datetime('now'))",(description,))
         cursor.connection.commit()
+
+    def delete_category(self, category_id):
+        cursor = self.get_cursor()
+        cursor.execute("DELETE FROM categories WHERE category_id = ?", (category_id,))
+        cursor.connection.commit()
+
+    def update_category(self, category_id, omschrijving):
+        cursor = self.get_cursor()
+        cursor.execute("UPDATE categories SET omschrijving=? WHERE category_id =?", (omschrijving, category_id))
+        cursor.connection.commit()
+
 
     def update_user(self, teacher_id, display_name, username, is_admin):
         cursor = self.get_cursor()
