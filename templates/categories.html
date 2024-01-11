@@ -23,10 +23,17 @@
     {% if session.username %}
 
     <p>Hallo, {{ session.username}}! U bent ingelogd</p>
-   
+
 
     <div>
         <h2>nieuw categorie</h2>
+        <div class="flash_message">
+            {% for message in get_flashed_messages() %}
+            <div class="inner_flash_message">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
         <form method="post" action="/save-category">
             <div>
                 <label for="description">Omschrijving:</label>
@@ -36,14 +43,17 @@
                 <input type="submit" value="opslaan">
                 <input type="reset" value="Reset">
             </div>
-            <h2>Categorieën</h2>   
+            <h2>Categorieën</h2>
 
             <ul>
                 {% for category in categories %}
                 <li>
-                    <strong>Omschrijving:</strong> {{ category.omschrijving }}<br> 
-                    <strong>Gemaakt op:</strong> {{ category.date_created }}<br> {% if session.is_admin == 0%} <a href="/verwijder_categorie/{{category.category_id}}">Verwijderen</a> {% endif %}
- 
+                    <strong>Omschrijving:</strong> {{ category.omschrijving }}<br>
+                    <strong>Gemaakt op:</strong> {{ category.date_created }}<br> 
+                    {% if session.is_admin == 0%} 
+                        <a href="/verwijder_categorie/{{category.category_id}}">Verwijderen</a> <br> 
+                        <a href="/categorie_aanpas/{{category.category_id}}">Aanpassen</a>
+                    {% endif %}
                     <hr>
                 </li>
                 {% endfor %}

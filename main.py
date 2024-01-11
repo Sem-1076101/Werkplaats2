@@ -118,7 +118,7 @@ def admin():
     username = session.get('username')
     is_admin = session.get('is_admin')
     teacher_id = session.get('teacher_id')
-    if not username or is_admin == 1:
+    if is_admin == 1:
         flash('U moet inloggen om deze pagina te bezoeken.')
         return redirect(url_for('login'))
     else:
@@ -198,6 +198,34 @@ def verwerk_aanpas_docent():
     else:
         flash('Er is iets fout gegaan met het aanpassen.')
         return redirect(url_for('admin'))
+    
+@app.route('/categorie_aanpas/<int:category_id>')
+def categorie_aanpas(category_id):
+    model = UserModel(DATABASEFILE)
+    get_categories = model.get_categories_by_id(category_id)
+
+    if get_categories:
+        return render_template('categorie_aanpas.html', categories = get_categories)
+    else: 
+        flash('Er is iets fout gegaan met het ophalen van de categorie')
+        return redirect(url_for('admin'))   
+
+
+@app.route('/verwerk_aanpas_categorie', methods=['POST'])
+def verwerk_aanpas_categorie():
+    category_id = request.form['category_id']
+    omschrijving = request.form['omschrijving']
+
+    model = UserModel(DATABASEFILE)
+    update_teacher = model.update_category(category_id = category_id, omschrijving = omschrijving)
+
+    if not update_teacher:
+        flash('Docent succesvol aangepast!')
+        return redirect(url_for('categories'))
+    else:
+        flash('Er is iets fout gegaan met het aanpassen.')
+        return redirect(url_for('categories'))
+
     
 @app.route('/verwijder_categorie/<int:category_id>')
 def verwijder_categorie(category_id):
