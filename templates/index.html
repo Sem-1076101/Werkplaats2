@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="/static/css/index.css">
+    <link rel="stylesheet" href="/static/CSS/header.css">
 </head>
 
 <body>
@@ -72,6 +73,10 @@
                 <strong>Leraren ID:</strong> {{ note.teacher_id }}<br>
                 <strong>Notitie:</strong> {{ note.note }}<br>
                 <strong>Gemaakt op:</strong> {{ note.date_created }}<br>
+                {% if note.teacher_id == session.teacher_id %}
+                <a href="#">Verwijderen</a>
+                <a href="#">Aanpassen</a>
+                {% endif %}
                 <hr>
             </li>
             {% endfor %}
@@ -79,6 +84,64 @@
     </div>
     {% elif session.is_admin == 0 %}
 
+ 
+ 
+    <div class="container">
+        <div class="inner-container">
+            <div class="h2_edit">
+                <h2>Alle notitties van docenten</h2>
+            </div>
+
+            <div class="all_notes_names">
+                <div>
+                    <p>Aangemaakt door</p>
+                </div>
+                <div>
+                    <p>Titel</p>
+                </div>
+                <div>
+                    <p>Bron</p>
+                </div>
+                <div>
+                    <p>Openbaar</p>
+                </div>
+                <div>
+                    <p>Gemaakt op</p>
+                </div>
+                <div>
+                    <p>Notitie</p>
+                </div>
+            </div>
+            <div class="container-flex">
+                {% for note in notes %}
+                <div class="teacher">
+                    <div class="box1">
+                        <p>{{ note.note_id }}</p>
+                    </div>
+                    <div class="box2">
+                        <p>{{ note.title }}</p>
+                    </div>
+                    <div class="box3">
+                        <p>{{ note.note_source }}</p>
+                    </div>
+                    <div class="box4">
+                        <p>{{ note.is_public }}</p>
+                    </div>
+                    <div class="box5">
+                        <p>{{note.date_created}}</p>
+                    </div>
+
+                </div>
+
+                {% endfor %}
+        </div>
+    </div>
+ 
+ 
+ 
+ 
+ 
+ 
     <p>dit werkt {{session.username}}</p>
 
     {% else %}

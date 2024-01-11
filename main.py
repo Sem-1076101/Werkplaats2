@@ -98,7 +98,7 @@ def save_note():
     model = UserModel(DATABASEFILE)
     model.create_note(title=title, note_source=note_source, is_public=is_public, teacher_id=teacher_id, category_id=category_id, note=note_content)
 
-    return redirect(url_for('welcome'))
+    return redirect(url_for('index'))
 
 @app.route('/categories')
 def categories():
