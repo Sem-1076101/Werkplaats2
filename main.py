@@ -107,18 +107,19 @@ def vragen(note_id):
 
     get_note_by_id = model.get_note_by_id(note_id)
 
-    get_all_questions_by_note_id = model.get_all_questions_by_note_id(note_id)
-    get_all_questions_by_id_user = model.get_all_questions_by_id_user(teacher_id)
+    # get_all_questions_by_note_id = model.get_all_questions_by_note_id(note_id)
+    # get_all_questions_by_id_user = model.get_all_questions_by_id_user(teacher_id)
 
 
-    if not get_all_questions_by_id_user:
-        flash('Er zijn geen vragen gevonden.')
+    # if not get_all_questions_by_id_user:
+    #     flash('Er zijn geen vragen gevonden.')
 
 
-    if not get_all_questions_by_note_id:
-        flash('Er zijn geen vragen gevonden')
+    # if not get_all_questions_by_note_id:
+    #     flash('Er zijn geen vragen gevonden')
+    #  all_questions = get_all_questions_by_note_id, get_all_questions_user = get_all_questions_by_id_user,
         
-    return render_template('vragen.html',  all_questions = get_all_questions_by_note_id, get_all_questions_user = get_all_questions_by_id_user, note = get_note_by_id)
+    return render_template('vragen.html', note = get_note_by_id)
 
 @app.route('/save-note', methods=['POST'])
 def save_note():

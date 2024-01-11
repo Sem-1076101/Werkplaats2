@@ -28,8 +28,8 @@
             </div>
             <div class="note">
                 <p>trest</p>
-                {% for note in notes %}
-                <p>De note waar je naar kijkt: {{notes.note_id}}</p>
+                {% for notes in note %}
+                <p>De note waar je naar kijkt: {{ notes.title }}</p>
                 <a href="vragen_genereren">Genereer een vraag</a>
                 {% endfor %}
             </div>
@@ -42,7 +42,7 @@
             </div>
             <div class="user-questions-container">
                 <h2>Uw eigen vragen</h2>
-                {% for questions_user in questions %}
+                {% for questions in questions_user %}
                 <div class="user-questions">
                     <div>
                         <p>{{questions.exam_question}}</p>
@@ -53,7 +53,7 @@
             </div>
             <div class="all-questions-container">
                 <h2>Andere hun vragen gebaseerd op deze notitie</h2>
-                {% for all_questions in question %}
+                {% for questions in all_questions %}
                 <div class="all-questions">
                     <div>
                         <p>{{questions.exam_question}}</p>

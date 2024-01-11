@@ -93,7 +93,7 @@ class UserModel:
     def get_all_questions_by_note_id(self, note_id):
         cursor = self.get_cursor()
         cursor.execute("SELECT * FROM questions WHERE note_id = ?", (note_id,))
-        return cursor.fetchall()
+        return cursor.fetchone()
     
     def get_all_questions_by_id_user(self, teacher_id):
         cursor = self.get_cursor()
