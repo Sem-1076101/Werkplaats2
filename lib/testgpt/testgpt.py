@@ -1,20 +1,19 @@
 import json
 from pathlib import Path
-
-import openai
-
+from openai import OpenAI
 
 class TestGPT:
     def __init__(self, api_key, config_file="testgpt_prompting.json"):
         self.api_key = api_key
-
         self.config_file = config_file
+        self.client = OpenAI(api_key=self.api_key)  # Dit initialiseert de OpenAI-client
         self.initial_parameters = self.get_initial_parameters()
         self.init_openai()
 
+
     def init_openai(self):
-        openai.api_key = self.api_key
-        # Dit zou een goede plek zijn om meer openai parameters te zetten
+        # Voeg hier eventuele OpenAI-clientinitialisatie toe
+        pass
 
     def get_initial_parameters(self):
         self_path = Path(globals().get("__file__", "./_")).absolute().parent
@@ -35,8 +34,8 @@ class TestGPT:
         }
         parameters["messages"].append({"role": "user", "content": note})
         try:
-            response = openai.ChatCompletion.create(**parameters)
-            result = response["choices"][0]["message"]["content"]
+            response = self.client.chat.completions.create(**parameters)
+            result = response.choices[0].message.content
         except Exception as e:
             print(e)
             result = None
@@ -47,17 +46,3 @@ class TestGPT:
 
     def generate_multiple_choice_question(self, note):
         return self._generate_question(note, "multiple_choice_question")
-
-
-if __name__ == "__main__":
-    api_key = "sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-    test_gpt = TestGPT(api_key)
-    test_text = """
-De grutto is een oer-Hollandse weidevogel. Je vindt deze grote, slanke steltloper op erven en graslanden van
- boerenbedrijven waar voldoende ruimte is voor natuur. Het meest ideaal zijn vochtige, kruidenrijke graslanden met een
-  goed bodemleven en volop insecten aan de oppervlakte.
-"""
-    result = test_gpt.generate_open_question(test_text)
-    print(result)
-    result = test_gpt.generate_multiple_choice_question(test_text)
-    print(result)

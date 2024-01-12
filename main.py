@@ -13,12 +13,7 @@ DATABASEFILE = 'databases/testgpt.db'
 
 
 test_gpt = TestGPT(OPENAI_LICENSE)
-# my_api_key = "<jouw API key>"  # Deze code mag NIET worden gecommit naar github!
-# test_gpt = TestGPT(my_api_key)
-# open_question = test_gpt.generate_open_question(
-#     "De grutto is een oer-Hollandse weidevogel."
-# )
-# print(open_question) 
+
 
 
 is_admin = 0
@@ -107,19 +102,51 @@ def vragen(note_id):
 
     get_note_by_id = model.get_note_by_id(note_id)
 
-    # get_all_questions_by_note_id = model.get_all_questions_by_note_id(note_id)
-    # get_all_questions_by_id_user = model.get_all_questions_by_id_user(teacher_id)
+    get_all_questions_by_name= model.get_all_notes_and_questions_by_name()
+    get_all_questions_by_id_user = model.get_all_questions_by_id_user(teacher_id)
 
 
-    # if not get_all_questions_by_id_user:
-    #     flash('Er zijn geen vragen gevonden.')
+    if not get_all_questions_by_id_user:
+        flash('Er zijn geen vragen gevonden.')
 
 
-    # if not get_all_questions_by_note_id:
-    #     flash('Er zijn geen vragen gevonden')
-    #  all_questions = get_all_questions_by_note_id, get_all_questions_user = get_all_questions_by_id_user,
+    if not get_all_questions_by_name:
+        flash('Er zijn geen vragen gevonden')
         
-    return render_template('vragen.html', note = get_note_by_id)
+    return render_template('vragen.html', note = get_note_by_id, all_questions = get_all_questions_by_name, get_all_questions_user = get_all_questions_by_id_user)
+
+
+@app.route('/genereer_vraag',  methods=['GET', 'POST'])
+def genereer_vraag():
+    if request.method == 'POST':
+        model = UserModel(DATABASEFILE)
+        question_note = request.form.get('question_note')
+        print(f"Question Note: {question_note}")
+        get_note_id_by_note = model.get_note_id_by_note(question_note)
+
+
+        open_question = test_gpt.generate_open_question(question_note)
+        print(f"Generated Question: {open_question}")
+        return render_template('question_note.html', question_note=question_note, open_question=open_question, note_id = get_note_id_by_note)
+    
+    return render_template('question_note.html')
+
+@app.route('/question_aanmaak_verwerk', methods = ['POST', 'GET'])
+def question_aanmaak_verwerk():
+    teacher_id = session.get('teacher_id')
+    note_id = request.form.get('note_id')
+    generated_question = request.form.get('generated_question')
+    final_changed_question = request.form.get('changed_question')
+
+    model = UserModel(DATABASEFILE)
+    insert_question = model.create_question(teacher_id = teacher_id, note_id = note_id, generated_question = generated_question, final_changed_question = final_changed_question)
+
+    if insert_question:
+        flash('De question is aangemaakt!')
+        return redirect(url_for('vragen', note_id = note_id))
+    
+    return redirect(url_for('vragen', note_id = note_id))
+
 
 @app.route('/save-note', methods=['POST'])
 def save_note():
@@ -169,8 +196,6 @@ def nieuw_account():
     else:
         flash('Je hebt niet de rechten om deze pagina te bezoeken.')
         return redirect(url_for('login'))
-
-
 
 @app.route('/register_check_admin', methods=['POST'])
 def register_check_admin():

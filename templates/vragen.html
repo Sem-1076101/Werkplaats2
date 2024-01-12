@@ -29,8 +29,11 @@
             <div class="note">
                 <p>trest</p>
                 {% for notes in note %}
-                <p>De note waar je naar kijkt: {{ notes.title }}</p>
-                <a href="vragen_genereren">Genereer een vraag</a>
+                <p>De note waar je naar kijkt: {{ notes.note }}</p>
+                <form action="/genereer_vraag" method="post">
+                    <input type="text" name="question_note" value="{{notes.note}}" hidden>
+                    <button type="submit" name="submit_question_note">Vraag generen</button>
+                </form>
                 {% endfor %}
             </div>
             <div class="flash_message">
@@ -42,25 +45,30 @@
             </div>
             <div class="user-questions-container">
                 <h2>Uw eigen vragen</h2>
-                {% for questions in questions_user %}
+                {% for question in get_all_questions_user %}
                 <div class="user-questions">
                     <div>
-                        <p>{{questions.exam_question}}</p>
-                        <p>{{questions.date_created}}</p>
+                        <p>{{ session.username }}</p>
+                        <p>{{ question.exam_question }}</p>
+                        <p>{{ question.generated_question }}</p>
+                        <p>{{ question.date_created }}</p>
                     </div>
                 </div>
-                {%endfor%}
+                {% endfor %}
             </div>
             <div class="all-questions-container">
                 <h2>Andere hun vragen gebaseerd op deze notitie</h2>
-                {% for questions in all_questions %}
+                {% for item in all_questions %}
                 <div class="all-questions">
                     <div>
-                        <p>{{questions.exam_question}}</p>
-                        <p>{{questions.date_created}}</p>
+                        <p>{{ item.display_name }}</p>
+                        <p>{{ item.note }}</p>
+                        <p>{{ item.exam_question }}</p>
+                        <p>{{ item.generated_question }}</p>
+                        <p>{{ item.date_created }}</p>
                     </div>
                 </div>
-                {%endfor%}
+                {% endfor %}
             </div>
         </div>
     </div>

@@ -49,7 +49,12 @@ class UserModel:
     def get_teacher_by_id(self, teacher_id):
         cursor = self.get_cursor()
         cursor.execute("SELECT * FROM teachers WHERE teacher_id=?", (teacher_id,))
-        return cursor.fetchone()
+        return cursor.fetchall()
+    
+    # def get_teacher_by_note(self, note_id):
+    #     cursor = self.get_cursor()
+    #     cursor.execute("SELECT * FROM teachers WHERE note_id=?", (teacher_id,))
+    #     return cursor.fetchone()
     
     def get_all_categories(self):
         cursor = self.get_cursor()
@@ -69,6 +74,20 @@ class UserModel:
         )
         cursor.connection.commit()
     
+    def create_question(self, teacher_id, note_id, generated_question, final_changed_question):
+        cursor = self.get_cursor()
+        cursor.execute(
+            "INSERT INTO questions (note_id, exam_question, date_created, teacher_id, generated_question) VALUES (?, ?, datetime('now'), ?, ?)",
+            (note_id, final_changed_question, teacher_id, generated_question)
+        )
+        cursor.connection.commit()
+
+    def get_all_notes_and_questions_by_name(self):
+        cursor = self.get_cursor()
+        cursor.execute("SELECT notes.note_id, notes.title, notes.note_source, notes.is_public, notes.teacher_id, notes.note, notes.date_created, teachers.display_name, questions.exam_question, questions.generated_question, questions.date_created FROM notes JOIN teachers ON notes.teacher_id = teachers.teacher_id LEFT JOIN questions ON notes.note_id = questions.note_id")
+        return cursor.fetchall()
+
+
     def get_all_notes(self):
         cursor = self.get_cursor()
         cursor.execute("SELECT * FROM notes")
@@ -93,12 +112,12 @@ class UserModel:
     def get_all_questions_by_note_id(self, note_id):
         cursor = self.get_cursor()
         cursor.execute("SELECT * FROM questions WHERE note_id = ?", (note_id,))
-        return cursor.fetchone()
+        return cursor.fetchall()
     
     def get_all_questions_by_id_user(self, teacher_id):
         cursor = self.get_cursor()
         cursor.execute("SELECT * FROM questions WHERE teacher_id = ?", (teacher_id,))
-        return cursor.fetchone()
+        return cursor.fetchall()
 
     def create_category(self, description):
         cursor = self.get_cursor()

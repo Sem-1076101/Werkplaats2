@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vragen genereren</title>
+</head>
+<body>
+    <div class="container">
+        <div class="inner-container">
+            <div class="h2-edit">
+                <h2>Question aanmaken/wijzigen</h2>
+            </div>
+            <div class="container-form">
+                
+                <form action="question_aanmaak_verwerk" method="post">
+                    <label for="question_note">De betrefte notitie:</label>
+                    <textarea name="question_note" id="question_note" cols="50"  rows="4">{{ question_note }}</textarea>
+
+                    <br>
+                    {% for note in note_id %}
+                    <input type="number" name="note_id" value="{{note.note_id}}" hidden>
+                    {% endfor %}
+
+                    <label for="generated_question">Gegenereerde vraag</label>
+                    <input type="text" name="generated_question" value="{{open_question}}">
+                    <p>{{ open_question }}</p>
+
+                    <br>
+
+                    <label for="change_question">Verander Gegenereerde vraag:</label>
+                    <textarea name="changed_question" id="question_note" cols="50"  rows="4">{{ open_question }}</textarea>
+
+                    <br>
+                    <button type="submit" name="submit_question">Opslaan</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

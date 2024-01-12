@@ -7,7 +7,7 @@ def mock_openai_open_create(monkeypatch):
     def mock_ai(*args, **kwargs):
         return mock_open_response()
 
-    monkeypatch.setattr(openai.ChatCompletion, "create", mock_ai)
+    monkeypatch.setattr(openai.resources.chat.Completions, "create", mock_ai)
 
 
 def mock_open_response():
@@ -35,7 +35,7 @@ def mock_openai_multiple_create(monkeypatch):
     def mock_ai(*args, **kwargs):
         return mock_openai_multiple_response()
 
-    monkeypatch.setattr(openai.ChatCompletion, "create", mock_ai)
+    monkeypatch.setattr(openai.resources.chat.Completions, "create", mock_ai)
 
 
 def mock_openai_multiple_response():
