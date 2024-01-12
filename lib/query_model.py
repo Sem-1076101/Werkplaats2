@@ -17,7 +17,7 @@ class UserModel:
         cursor.row_factory = sqlite3.Row
         return cursor
     
-
+    # model voor het aanmaken van leraren 
     def create_user(self, display_name, username, password, is_admin):
         # password hashen
         hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
@@ -26,13 +26,13 @@ class UserModel:
                        (display_name, username, hashed_password, is_admin))
         cursor.connection.commit()
 
-
+    # model voor het ophalen van leraren met hun gebruikersnaam 
     def get_user_by_username(self, username):
         cursor = self.get_cursor()
         cursor.execute("SELECT * FROM teachers WHERE username=?", (username,))
         return cursor.fetchone()
 
-
+    # model voor het checken of de password hash klopt
     def check_login(self, username, password):
         cursor = self.get_cursor()
         cursor.execute("SELECT * FROM teachers WHERE username=?", (username,))
@@ -43,32 +43,37 @@ class UserModel:
         else:
             return False
     
+    # model voor het ophalen van alle leraren 
     def get_all_teachers(self):
         cursor = self.get_cursor()
         cursor.execute("SELECT * FROM teachers")
         return cursor.fetchall() 
 
+    # model voor het ophalen van leraar met id
     def get_teacher_by_id(self, teacher_id):
         cursor = self.get_cursor()
         cursor.execute("SELECT * FROM teachers WHERE teacher_id=?", (teacher_id,))
         return cursor.fetchall()
     
-
+    # model voor het ophalen van notes met de bijbehorende categorie, bij deze had ik(sem) wel chatgpt gebruikt. Deze werkte namelijk niet helemaal lekker.
     def get_all_notes_with_categories(self):
         cursor = self.get_cursor()
         cursor.execute("SELECT notes.*, categories.omschrijving as category_omschrijving FROM notes JOIN categories ON notes.category_id = categories.category_id")
         return cursor.fetchall()
     
+    # model voor alle categorien ophalen 
     def get_all_categories(self):
         cursor = self.get_cursor()
         cursor.execute("SELECT * FROM categories")
         return cursor.fetchall() 
     
+    # model voor het ophalen van categorien met id 
     def get_categories_by_id(self, category_id):
         cursor = self.get_cursor()
         cursor.execute("SELECT * FROM categories WHERE category_id =?", (category_id,))
         return cursor.fetchone()
     
+    # model voor het aanmaken van notities 
     def create_note(self, title, note_source, is_public, teacher_id, category_id, note):
         cursor = self.get_cursor()
         cursor.execute(
@@ -77,6 +82,7 @@ class UserModel:
         )
         cursor.connection.commit()
     
+    # model voor het aanmaken van vragen 
     def create_question(self, teacher_id, note_id, generated_question, final_changed_question):
         cursor = self.get_cursor()
         cursor.execute(
@@ -85,27 +91,35 @@ class UserModel:
         )
         cursor.connection.commit()
 
+    # model voor het ophalen van notes door note_id met het bijbehorende categorie
     def get_all_notes_and_questions_by_name(self, note_id):
         cursor = self.get_cursor()
         cursor.execute("SELECT notes.note_id, notes.title, notes.note_source, notes.is_public, notes.teacher_id, notes.note, notes.date_created, teachers.display_name, questions.exam_question, questions.generated_question, questions.date_created AS question_date_created FROM notes LEFT JOIN teachers ON notes.teacher_id = teachers.teacher_id LEFT JOIN questions ON notes.note_id = questions.note_id WHERE notes.note_id = ?", (note_id,))
         return cursor.fetchall()
-    
+
+    # model voor het ophalen van alle notes   
     def get_all_notes(self):
         cursor = self.get_cursor()
         cursor.execute("SELECT * FROM notes")
         return cursor.fetchall()
     
+    # model voor het ophalen van alle notes met id 
     def get_note_by_id(self, note_id):
         cursor = self.get_cursor()
         cursor.execute("SELECT * FROM notes WHERE note_id = ?", (note_id,))
         return cursor.fetchone()
     
-    
+    # model voor alle notes met namen van leraren, deze was helaas niet goed gelukt. Hij linkte namelijk het note_id met de leraar_id. 
     def get_all_notes_by_name(self):
         cursor = self.get_cursor()
         cursor.execute("SELECT notes.note_id, notes.title, notes.note_source, notes.is_public, notes.teacher_id, notes.note, notes.date_created, teachers.display_name FROM notes JOIN teachers ON notes.teacher_id = teachers.teacher_id")
         return cursor.fetchall()
     
+
+    #
+    # Alles wat hieronder staat spreekt eigenlijk voor zichzelf, de naam van wat het doet staat in de titel van de functie
+    #
+
     def get_all_questions(self):
         cursor = self.get_cursor()
         cursor.execute("SELECT * FROM questions")

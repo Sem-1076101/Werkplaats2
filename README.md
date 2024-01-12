@@ -44,3 +44,20 @@ categorieen bekijken
 
 
 Wat Sem gedaan heeft + bronnen:
+Registratie,
+Login + beveiligd
+Admin pagina overzicht 
+Toevoegen van nieuwe accounts admin
+Verwijderen van accounts admin
+Aanpassen van accounts admin
+Styling van admin
+Uitloggen
+Bekijken van notities admin
+Bekijken van categorieën admin
+Verwijderen en aanpassen categorieën 
+Mooi maken van alles op admin
+Routes beheert van admin op index (als admin zie je andere dingen dan leraren )
+De vragen genereren met Chatgpt
+Gegenereerde vragen veranderen
+Gegenereerde vragen verwijderen
+Gegenereerde vragen bekijken
