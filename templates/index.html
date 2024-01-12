@@ -51,6 +51,14 @@
                 </select>
             </div>
 
+            <div class="flash_message">
+                {% for message in get_flashed_messages() %}
+                <div class="inner_flash_message">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+
             <div>
                 <label for="note">Notitie:</label>
                 <textarea name="note" rows="4" required></textarea>
@@ -69,7 +77,7 @@
             {% endfor %}
         </ul>
     </div>
-
+<!-- 
     <div>
         <h2>Notities:</h2>
         <form id="searchForm">
@@ -85,7 +93,7 @@
                 <p><strong>Openbaar:</strong> {{ note.is_public }}</p>
             </li>
             {% endfor %}
-        </ul>
+        </ul> -->
         <ul>
             {% for note in notes %}
             <li>
@@ -96,8 +104,8 @@
                 <strong>Notitie:</strong> {{ note.note }}<br>
                 <strong>Gemaakt op:</strong> {{ note.date_created }}<br>
                 {% if note.teacher_id == session.teacher_id %}
-                <a href="#">Verwijderen</a>
-                <a href="#">Aanpassen</a>
+                <a href="/verwijder_notitie/{{note.note_id}}">Verwijderen</a>
+                <a href="/notitie_aanpas/{{note.note_id}}">Aanpassen</a>
                 {% endif %}
                 <a href="/vragen/{{note.note_id}}">Genereer en bekijk vragen</a>
                 <hr>

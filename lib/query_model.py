@@ -97,7 +97,7 @@ class UserModel:
     def get_note_by_id(self, note_id):
         cursor = self.get_cursor()
         cursor.execute("SELECT * FROM notes WHERE note_id = ?", (note_id,))
-        return cursor.fetchall()
+        return cursor.fetchone()
     
     
     def get_all_notes_by_name(self):
@@ -150,6 +150,10 @@ class UserModel:
         cursor.execute("UPDATE questions SET exam_question=? WHERE questions_id =?", (exam_question, questions_id))
         cursor.connection.commit()
 
+    def update_note(self, note_id, title, note_source, is_public, category_id, note):
+        cursor = self.get_cursor()
+        cursor.execute("UPDATE notes SET title =?, note_source =?, is_public=?, category_id=?, note =? WHERE note_id=?", (title, note_source, is_public, category_id, note, note_id))
+        cursor.connection.commit()
 
     def update_user(self, teacher_id, display_name, username, is_admin):
         cursor = self.get_cursor()
@@ -164,6 +168,11 @@ class UserModel:
     def delete_question(self, questions_id):
         cursor = self.get_cursor()
         cursor.execute("DELETE FROM questions WHERE questions_id = ?", (questions_id,))
+        cursor.connection.commit()
+
+    def delete_note(self, note_id):
+        cursor = self.get_cursor()
+        cursor.execute("DELETE FROM notes WHERE note_id = ?", (note_id,))
         cursor.connection.commit()
     
     def export_notes_to_csv(self, filename='exported_notes.csv'):

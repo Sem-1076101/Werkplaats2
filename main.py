@@ -275,6 +275,41 @@ def verwerk_aanpas_docent():
         flash('Er is iets fout gegaan met het aanpassen.')
         return redirect(url_for('admin'))
     
+@app.route('/notitie_aanpas/<int:note_id>')
+def notitie_aanpas(note_id):
+    model = UserModel(DATABASEFILE)
+    get_categories = model.get_all_categories()
+    get_notes = model.get_note_by_id(note_id)
+
+    if get_notes:
+        return render_template('notitie_aanpas.html', note = get_notes, categories = get_categories)
+    else: 
+        flash('Er is iets fout gegaan met het ophalen van de vragen')
+        return redirect(url_for('index'))
+
+
+
+@app.route('/verwerk_aanpas_notitie', methods=['POST'])
+def verwerk_aanpas_notitie():
+    note_id = request.form['note_id']
+    title = request.form['title']
+    note_source = request.form['note_source']
+    is_public = request.form.get('is_public', 0)
+    category_id = request.form['category_id']
+    note = request.form['note']
+
+    model = UserModel(DATABASEFILE)
+    update_note = model.update_note(note_id = note_id, title = title, note_source = note_source, is_public = is_public, category_id = category_id, note = note)
+
+    if not update_note:
+        flash('Vraag succesvol aangepast!')
+        return redirect(url_for('index'))
+    else:
+        flash('Er is iets fout gegaan met het aanpassen.')
+        return redirect(url_for('index'))
+    
+
+
 @app.route('/categorie_aanpas/<int:category_id>')
 def categorie_aanpas(category_id):
     model = UserModel(DATABASEFILE)
@@ -330,6 +365,19 @@ def verwerk_aanpas_vragen():
     else:
         flash('Er is iets fout gegaan met het aanpassen.')
         return redirect(url_for('index'))
+
+@app.route('/verwijder_notitie/<int:note_id>')
+def verwijder_note(note_id):
+    model = UserModel(DATABASEFILE)
+
+    delete_note = model.delete_note(note_id)
+    if not delete_note:
+        flash('Notitie is verwijderd.')
+    else:
+        flash('Er is iets fout gegaan met het verwijderen')
+        return redirect(url_for('index'))
+    
+    return redirect(url_for('index'))
 
 @app.route('/verwijder_question/<int:questions_id>')
 def verwijder_question(questions_id):

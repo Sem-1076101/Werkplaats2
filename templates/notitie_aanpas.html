@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docent aanpassen</title>
+    <link rel="stylesheet" href="/static/CSS/header.css">
+    <link rel="stylesheet" href="/static/CSS/forms.css">
+</head>
+<body>
+    <div class="header">
+        <a href="#default" class="logo">TEST-CORRECT</a>
+        <div class="header-right">
+            <a href="/index">Notities</a>
+            <a href="/categories">Categorieën</a>
+            <a href="/admin" class="active">Admin</a>
+            <a href="/logout">Uitloggen</a>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="inner-container">
+            <div class="h2_edit">
+            <h2>Notitie {{note.teacher_id}} aanpassen</h2>
+            </div>
+            <form action="/verwerk_aanpas_notitie" method="post" class="update_form">
+                <input type="text" name="note_id" value="{{note.note_id}}" hidden>
+
+                <label for="title">Titel:</label>
+                <input type="text" name="title" value="{{note.title}}" required>
+
+                <label for="username">Bron:</label>
+                <input type="text" name="note_source" value="{{note.note_source}}" required>
+
+                <label for="is_public">Openbaar:</label>
+                <input type="checkbox" name="is_public" value="1">
+                
+                <label for="category_id">Categorie:</label>
+                <select name="category_id" id="category_id" required>
+                    {% for category in categories %}
+                    <option value="{{ category.category_id }}">{{ category.omschrijving }}</option>
+                    {% endfor %}
+                </select>
+                <br><br>
+
+                <label for="note">Notitie:</label>
+                <input type="text" name="note" value="{{note.note}}" required>
+                <p>Datum van aanmaak: {{note.date_created}}</p>
+                
+                <button class="update_form_btn" type="submit">Aanpassing verzenden</button>
+                <a href="/index">Terug</a>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
