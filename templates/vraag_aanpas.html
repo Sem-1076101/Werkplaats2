@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vraag aanpassen</title>
+    <link rel="stylesheet" href="/static/CSS/header.css">
+    <link rel="stylesheet" href="/static/CSS/forms.css">
+</head>
+<body>
+    <div class="header">
+        <a href="#default" class="logo">TEST-CORRECT</a>
+        <div class="header-right">
+            <a href="/index" class="active">Notities</a>
+            <a href="/categories">Categorieën</a>
+            <a href="/admin">Admin</a>
+            <a href="/logout">Uitloggen</a>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="inner-container">
+            <div class="h2_edit">
+            <h2>Vraag {{vragen.exam_question}} aanpassen</h2>
+            </div>
+            <form action="/verwerk_aanpas_vraag" method="post" class="update_form">
+                <input type="text" name="questions_id" value="{{vragen.questions_id}}" hidden>
+
+                <label for="exam_question">Examen vraag:</label>
+                <input type="text" name="exam_question" value="{{vragen.exam_question}}" required>
+
+                <p>Datum van aanmaak: {{vragen.date_created}}</p>
+
+                <button class="update_form_btn" type="submit">Aanpassing verzenden</button>
+                <a href="/index">Terug</a>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

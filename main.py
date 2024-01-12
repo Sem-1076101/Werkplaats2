@@ -287,6 +287,47 @@ def verwerk_aanpas_categorie():
         flash('Er is iets fout gegaan met het aanpassen.')
         return redirect(url_for('categories'))
 
+
+@app.route('/vraag_aanpas/<int:questions_id>')
+def vraag_aanpas(questions_id):
+    model = UserModel(DATABASEFILE)
+    get_questions = model.get_questions_by_id(questions_id)
+
+    if get_questions:
+        return render_template('vraag_aanpas.html', vragen = get_questions)
+    else: 
+        flash('Er is iets fout gegaan met het ophalen van de vragen')
+        return redirect(url_for('index'))
+
+
+
+@app.route('/verwerk_aanpas_vraag', methods=['POST'])
+def verwerk_aanpas_vragen():
+    questions_id = request.form['questions_id']
+    exam_question = request.form['exam_question']
+
+    model = UserModel(DATABASEFILE)
+    update_question= model.update_question(questions_id = questions_id, exam_question = exam_question)
+
+    if not update_question:
+        flash('Vraag succesvol aangepast!')
+        return redirect(url_for('index'))
+    else:
+        flash('Er is iets fout gegaan met het aanpassen.')
+        return redirect(url_for('index'))
+
+@app.route('/verwijder_question/<int:questions_id>')
+def verwijder_question(questions_id):
+    model = UserModel(DATABASEFILE)
+
+    delete_question = model.delete_question(questions_id)
+    if not delete_question:
+        flash('Vraag is verwijderd.')
+    else:
+        flash('Er is iets fout gegaan met het verwijderen')
+        return redirect(url_for('index'))
+    
+    return redirect(url_for('index'))
     
 @app.route('/verwijder_categorie/<int:category_id>')
 def verwijder_categorie(category_id):

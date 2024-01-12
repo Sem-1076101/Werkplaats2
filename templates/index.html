@@ -68,7 +68,7 @@
             {% for note in notes %}
             <li>
                 <strong>Titel:</strong> {{ note.title }}<br>
-                <strong>Bron:</strong> {{ note.note_source }}<br>
+                <strong>Bron:</strong> <a href="{{note.note_source}}">{{ note.note_source }}</a><br>
                 <strong>Openbaar:</strong> {{ note.is_public }}<br>
                 <strong>Leraren ID:</strong> {{ note.teacher_id }}<br>
                 <strong>Notitie:</strong> {{ note.note }}<br>

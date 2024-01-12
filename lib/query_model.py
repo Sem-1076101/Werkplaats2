@@ -82,13 +82,11 @@ class UserModel:
         )
         cursor.connection.commit()
 
-    # def get_all_notes_and_questions_by_name(self, note_id):
-    #     cursor = self.get_cursor()
-    #     cursor.execute("SELECT notes.note_id, notes.title, notes.note_source, notes.is_public, notes.teacher_id, notes.note, notes.date_created, teachers.display_name, questions.exam_question, questions.generated_question, questions.date_created AS question_date_created FROM notes LEFT JOIN teachers ON notes.teacher_id = teachers.teacher_id LEFT JOIN questions ON notes.note_id = questions.note_id WHERE notes.note_id = ?", (note_id,))
-    #     return cursor.fetchall()
-
+    def get_all_notes_and_questions_by_name(self, note_id):
+        cursor = self.get_cursor()
+        cursor.execute("SELECT notes.note_id, notes.title, notes.note_source, notes.is_public, notes.teacher_id, notes.note, notes.date_created, teachers.display_name, questions.exam_question, questions.generated_question, questions.date_created AS question_date_created FROM notes LEFT JOIN teachers ON notes.teacher_id = teachers.teacher_id LEFT JOIN questions ON notes.note_id = questions.note_id WHERE notes.note_id = ?", (note_id,))
+        return cursor.fetchall()
     
-
     def get_all_notes(self):
         cursor = self.get_cursor()
         cursor.execute("SELECT * FROM notes")
@@ -120,6 +118,11 @@ class UserModel:
         cursor.execute("SELECT * FROM questions WHERE note_id = ?", (note_id,))
         return cursor.fetchall()
     
+    def get_questions_by_id(self, questions_id):
+        cursor = self.get_cursor()
+        cursor.execute("SELECT * FROM questions WHERE questions_id = ?", (questions_id,))
+        return cursor.fetchone()
+
     def get_all_questions_by_id_user(self, teacher_id, note_id):
         cursor = self.get_cursor()
         cursor.execute("SELECT * FROM questions WHERE teacher_id = ? AND note_id = ?", (teacher_id, note_id,))
@@ -140,6 +143,11 @@ class UserModel:
         cursor.execute("UPDATE categories SET omschrijving=? WHERE category_id =?", (omschrijving, category_id))
         cursor.connection.commit()
 
+    def update_question(self, questions_id, exam_question):
+        cursor = self.get_cursor()
+        cursor.execute("UPDATE questions SET exam_question=? WHERE questions_id =?", (exam_question, questions_id))
+        cursor.connection.commit()
+
 
     def update_user(self, teacher_id, display_name, username, is_admin):
         cursor = self.get_cursor()
@@ -149,4 +157,9 @@ class UserModel:
     def delete_user(self, teacher_id):
         cursor = self.get_cursor()
         cursor.execute("DELETE FROM teachers WHERE teacher_id = ?", (teacher_id,))
+        cursor.connection.commit()
+
+    def delete_question(self, questions_id):
+        cursor = self.get_cursor()
+        cursor.execute("DELETE FROM questions WHERE questions_id = ?", (questions_id,))
         cursor.connection.commit()

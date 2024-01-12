@@ -15,15 +15,14 @@
                 
                 <form action="question_aanmaak_verwerk" method="post">
                     <label for="question_note">De betrefte notitie:</label>
-                    <textarea name="question_note" id="question_note" cols="50"  rows="4">{{ question_note }}</textarea>
+                    <p>{{ question_note }}</p>
 
                     <br>
                     {% for note in note_id %}
                     <input type="number" name="note_id" value="{{note.note_id}}" hidden>
                     {% endfor %}
 
-                    <label for="generated_question">Gegenereerde vraag</label>
-                    <input type="text" name="generated_question" value="{{open_question}}">
+                    <input type="text" name="generated_question" value="{{open_question}}" hidden>
                     <p>{{ open_question }}</p>
 
                     <br>
