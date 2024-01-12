@@ -34,13 +34,13 @@ Het meeste werkt hier hetzelfde als bij de docenten. Een admin kan alleen de not
 
 
 Wat Hamza gedaan heeft + bronnen:
-Header
-notities aanmaken
-notities bekijken
-exporteren van notities
-zoeken van notities (niet werkend gekregen)
-categorieen aanmaken
-categorieen bekijken
+Header - https://www.w3schools.com/howto/howto_css_responsive_header.asp
+notities aanmaken - workshop van sietze en mark + hulp van sem + https://www.digitalocean.com/community/tutorials/how-to-use-an-sqlite-database-in-a-flask-application
+notities bekijken - workshop van sietze en mark + hulp van sem + https://www.digitalocean.com/community/tutorials/how-to-use-an-sqlite-database-in-a-flask-application
+exporteren van notities - https://www.geeksforgeeks.org/how-to-create-csv-output-in-flask/ // https://www.youtube.com/watch?v=BP8ulGbu1fc
+zoeken van notities (niet werkend gekregen) 
+categorieen aanmaken - workshop van sietze en mark + hulp van sem + https://www.digitalocean.com/community/tutorials/how-to-use-an-sqlite-database-in-a-flask-application
+categorieen bekijken - workshop van sietze en mark + hulp van sem + https://www.digitalocean.com/community/tutorials/how-to-use-an-sqlite-database-in-a-flask-application
 
 
 Wat Sem gedaan heeft + bronnen:
