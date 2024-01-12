@@ -170,12 +170,12 @@ def export_notes():
     model.export_notes_to_csv()
     return send_file('exported_notes.csv', as_attachment=True)
 
-@app.route('/search-notes', methods=['GET'])
-def search_notes():
-    search_query = request.args.get('search', '')
-    model = UserModel(DATABASEFILE)
-    search_results = model.search_notes(search_query)
-    return render_template_string('{% for note in notes %}<li class="note-item"><strong class="note-title">{{ note.title }}</strong><p><strong>Bron:</strong> {{ note.note_source }}</p><p><strong>Openbaar:</strong> {{ note.is_public }}</p></li>{% endfor %}', notes=search_results)
+# @app.route('/search-notes', methods=['GET'])
+# def search_notes():
+#     search_query = request.args.get('search', '')
+#     model = UserModel(DATABASEFILE)
+#     search_results = model.search_notes(search_query)
+#     return render_template_string('{% for note in notes %}<li class="note-item"><strong class="note-title">{{ note.title }}</strong><p><strong>Bron:</strong> {{ note.note_source }}</p><p><strong>Openbaar:</strong> {{ note.is_public }}</p></li>{% endfor %}', notes=search_results)
 
 @app.route('/categories')
 def categories():

@@ -103,7 +103,7 @@
                 <strong>Leraren ID:</strong> {{ note.teacher_id }}<br>
                 <strong>Notitie:</strong> {{ note.note }}<br>
                 <strong>Gemaakt op:</strong> {{ note.date_created }}<br>
-                <!-- <stromg>Categorie: </stromg> {{ note.category.omschrijving }} -->
+
                 {% if note.teacher_id == session.teacher_id %}
                 <a href="/verwijder_notitie/{{note.note_id}}">Verwijderen</a>
                 <a href="/notitie_aanpas/{{note.note_id}}">Aanpassen</a>
@@ -114,7 +114,7 @@
             {% endfor %}
         </ul>
     </div>
-    <script>
+    <!-- <script>
         function searchNotes() {
             var searchInput = document.getElementById('searchInput').value;
             var noteList = document.getElementById('noteList');
@@ -131,7 +131,7 @@
             xhr.open('GET', url, true);
             xhr.send();
         }
-    </script>
+    </script> -->
     
     {% elif session.is_admin == 0 %}
 
