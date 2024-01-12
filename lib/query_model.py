@@ -77,7 +77,7 @@ class UserModel:
     def get_note_by_id(self, note_id):
         cursor = self.get_cursor()
         cursor.execute("SELECT * FROM notes WHERE note_id = ?", (note_id,))
-        return cursor.fetchone()
+        return cursor.fetchall()
     
     
     def get_all_notes_by_name(self):
