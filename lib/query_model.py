@@ -1,5 +1,7 @@
 import sqlite3 
 import bcrypt
+import csv
+from io import StringIO
 from pathlib import Path
 
 class UserModel:
@@ -163,3 +165,22 @@ class UserModel:
         cursor = self.get_cursor()
         cursor.execute("DELETE FROM questions WHERE questions_id = ?", (questions_id,))
         cursor.connection.commit()
+    
+    def export_notes_to_csv(self, filename='exported_notes.csv'):
+        cursor = self.get_cursor()
+        cursor.execute("SELECT note_id, title, note_source, is_public, teacher_id, note, date_created FROM notes")
+        notes = cursor.fetchall()
+
+        csv_data = StringIO()
+        csv_writer = csv.writer(csv_data)
+        csv_writer.writerow(['Note ID', 'Title', 'Source', 'Public', 'Teacher ID', 'Note', 'Date Created'])
+        
+        for note in notes:
+            csv_writer.writerow([note['note_id'], note['title'], note['note_source'], note['is_public'], note['teacher_id'], note['note'], note['date_created']])
+        
+        with open(filename, 'w', newline='') as csv_file:
+            csv_file.write(csv_data.getvalue())
+
+        print(f"Notities zijn succesvol geëxporteerd naar {filename}.")
+
+    

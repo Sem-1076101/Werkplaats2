@@ -1,6 +1,8 @@
 from flask import Flask, session, render_template, redirect, request, url_for, flash
 from flask import request
 from wtforms import Form, BooleanField, StringField, PasswordField, validators
+from flask import send_file
+from flask import render_template_string
 from lib.testgpt.testgpt import TestGPT
 from secret import OPENAI_LICENSE
 
@@ -162,6 +164,19 @@ def save_note():
     model.create_note(title=title, note_source=note_source, is_public=is_public, teacher_id=teacher_id, category_id=category_id, note=note_content)
 
     return redirect(url_for('index'))
+
+@app.route('/export-notes')
+def export_notes():
+    model = UserModel(DATABASEFILE)
+    model.export_notes_to_csv()
+    return send_file('exported_notes.csv', as_attachment=True)
+
+@app.route('/search-notes', methods=['GET'])
+def search_notes():
+    search_query = request.args.get('search', '')
+    model = UserModel(DATABASEFILE)
+    search_results = model.search_notes(search_query)
+    return render_template_string('{% for note in notes %}<li class="note-item"><strong class="note-title">{{ note.title }}</strong><p><strong>Bron:</strong> {{ note.note_source }}</p><p><strong>Openbaar:</strong> {{ note.is_public }}</p></li>{% endfor %}', notes=search_results)
 
 @app.route('/categories')
 def categories():
