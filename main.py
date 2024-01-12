@@ -82,17 +82,10 @@ def login_check():
 
 @app.route('/index')
 def index():
-    username = session.get('username')
-    is_admin = session.get('is_admin')
-    teacher_id = session.get('teacher_id')
-
     model = UserModel(DATABASEFILE)
     
+    get_notes = model.get_all_notes_with_categories()
     get_categories = model.get_all_categories()
-    get_notes = model.get_all_notes_by_name()
-
-    # for note in get_notes:
-    #     note['category'] = model.get_categories_by_id(note['category_id'])
 
     return render_template('index.html', categories=get_categories, notes=get_notes)
     

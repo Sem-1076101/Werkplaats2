@@ -53,10 +53,11 @@ class UserModel:
         cursor.execute("SELECT * FROM teachers WHERE teacher_id=?", (teacher_id,))
         return cursor.fetchall()
     
-    # def get_teacher_by_note(self, note_id):
-    #     cursor = self.get_cursor()
-    #     cursor.execute("SELECT * FROM teachers WHERE note_id=?", (teacher_id,))
-    #     return cursor.fetchone()
+
+    def get_all_notes_with_categories(self):
+        cursor = self.get_cursor()
+        cursor.execute("SELECT notes.*, categories.omschrijving as category_omschrijving FROM notes JOIN categories ON notes.category_id = categories.category_id")
+        return cursor.fetchall()
     
     def get_all_categories(self):
         cursor = self.get_cursor()

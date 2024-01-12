@@ -103,7 +103,7 @@
                 <strong>Leraren ID:</strong> {{ note.teacher_id }}<br>
                 <strong>Notitie:</strong> {{ note.note }}<br>
                 <strong>Gemaakt op:</strong> {{ note.date_created }}<br>
-
+                <strong>Categorie:</strong> {{ note.category_omschrijving }}<br>
                 {% if note.teacher_id == session.teacher_id %}
                 <a href="/verwijder_notitie/{{note.note_id}}">Verwijderen</a>
                 <a href="/notitie_aanpas/{{note.note_id}}">Aanpassen</a>
