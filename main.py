@@ -101,9 +101,10 @@ def vragen(note_id):
     model = UserModel(DATABASEFILE)
 
     get_note_by_id = model.get_note_by_id(note_id)
+    print(note_id)
 
-    get_all_questions_by_name= model.get_all_notes_and_questions_by_name()
-    get_all_questions_by_id_user = model.get_all_questions_by_id_user(teacher_id)
+    get_all_questions_by_name= model.get_all_notes_and_questions_by_name(note_id)
+    get_all_questions_by_id_user = model.get_all_questions_by_id_user(teacher_id, note_id)
 
 
     if not get_all_questions_by_id_user:

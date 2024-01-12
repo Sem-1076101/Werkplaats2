@@ -82,11 +82,12 @@ class UserModel:
         )
         cursor.connection.commit()
 
-    def get_all_notes_and_questions_by_name(self):
-        cursor = self.get_cursor()
-        cursor.execute("SELECT notes.note_id, notes.title, notes.note_source, notes.is_public, notes.teacher_id, notes.note, notes.date_created, teachers.display_name, questions.exam_question, questions.generated_question, questions.date_created FROM notes JOIN teachers ON notes.teacher_id = teachers.teacher_id LEFT JOIN questions ON notes.note_id = questions.note_id")
-        return cursor.fetchall()
+    # def get_all_notes_and_questions_by_name(self, note_id):
+    #     cursor = self.get_cursor()
+    #     cursor.execute("SELECT notes.note_id, notes.title, notes.note_source, notes.is_public, notes.teacher_id, notes.note, notes.date_created, teachers.display_name, questions.exam_question, questions.generated_question, questions.date_created AS question_date_created FROM notes LEFT JOIN teachers ON notes.teacher_id = teachers.teacher_id LEFT JOIN questions ON notes.note_id = questions.note_id WHERE notes.note_id = ?", (note_id,))
+    #     return cursor.fetchall()
 
+    
 
     def get_all_notes(self):
         cursor = self.get_cursor()
@@ -109,14 +110,19 @@ class UserModel:
         cursor.execute("SELECT * FROM questions")
         return cursor.fetchall()
     
+    def get_note_id_by_note(self, question_note):
+        cursor = self.get_cursor()
+        cursor.execute("SELECT * FROM notes WHERE note = ?", (question_note,))
+        return cursor.fetchall()
+    
     def get_all_questions_by_note_id(self, note_id):
         cursor = self.get_cursor()
         cursor.execute("SELECT * FROM questions WHERE note_id = ?", (note_id,))
         return cursor.fetchall()
     
-    def get_all_questions_by_id_user(self, teacher_id):
+    def get_all_questions_by_id_user(self, teacher_id, note_id):
         cursor = self.get_cursor()
-        cursor.execute("SELECT * FROM questions WHERE teacher_id = ?", (teacher_id,))
+        cursor.execute("SELECT * FROM questions WHERE teacher_id = ? AND note_id = ?", (teacher_id, note_id,))
         return cursor.fetchall()
 
     def create_category(self, description):

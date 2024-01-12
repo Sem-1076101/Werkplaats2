@@ -29,7 +29,7 @@
             <div class="note">
                 <p>trest</p>
                 {% for notes in note %}
-                <p>De note waar je naar kijkt: {{ notes.note }}</p>
+                <p>De note waar je naar kijkt: {{ notes.note }} {{ notes.note_id }}</p>
                 <form action="/genereer_vraag" method="post">
                     <input type="text" name="question_note" value="{{notes.note}}" hidden>
                     <button type="submit" name="submit_question_note">Vraag generen</button>
@@ -49,6 +49,7 @@
                 <div class="user-questions">
                     <div>
                         <p>{{ session.username }}</p>
+                        <p>{{ session.teacher_id }}</p>
                         <p>{{ question.exam_question }}</p>
                         <p>{{ question.generated_question }}</p>
                         <p>{{ question.date_created }}</p>
@@ -62,6 +63,7 @@
                 <div class="all-questions">
                     <div>
                         <p>{{ item.display_name }}</p>
+                        <p>{{ item.teacher_id }}</p>
                         <p>{{ item.note }}</p>
                         <p>{{ item.exam_question }}</p>
                         <p>{{ item.generated_question }}</p>
