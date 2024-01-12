@@ -71,9 +71,35 @@ class UserModel:
     
     def get_all_notes(self):
         cursor = self.get_cursor()
-        cursor.execute("SELECT note_id, title, note_source, is_public, teacher_id, note, date_created FROM notes")
+        cursor.execute("SELECT * FROM notes")
         return cursor.fetchall()
     
+    def get_note_by_id(self, note_id):
+        cursor = self.get_cursor()
+        cursor.execute("SELECT * FROM notes WHERE note_id = ?", (note_id,))
+        return cursor.fetchone()
+    
+    
+    def get_all_notes_by_name(self):
+        cursor = self.get_cursor()
+        cursor.execute("SELECT notes.note_id, notes.title, notes.note_source, notes.is_public, notes.teacher_id, notes.note, notes.date_created, teachers.display_name FROM notes JOIN teachers ON notes.teacher_id = teachers.teacher_id")
+        return cursor.fetchall()
+    
+    def get_all_questions(self):
+        cursor = self.get_cursor()
+        cursor.execute("SELECT * FROM questions")
+        return cursor.fetchall()
+    
+    def get_all_questions_by_note_id(self, note_id):
+        cursor = self.get_cursor()
+        cursor.execute("SELECT * FROM questions WHERE note_id = ?", (note_id,))
+        return cursor.fetchone()
+    
+    def get_all_questions_by_id_user(self, teacher_id):
+        cursor = self.get_cursor()
+        cursor.execute("SELECT * FROM questions WHERE teacher_id = ?", (teacher_id,))
+        return cursor.fetchone()
+
     def create_category(self, description):
         cursor = self.get_cursor()
         cursor.execute("INSERT INTO categories (omschrijving, date_created) VALUES (?, datetime('now'))",(description,))

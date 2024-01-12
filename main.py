@@ -1,6 +1,9 @@
 from flask import Flask, session, render_template, redirect, request, url_for, flash
 from flask import request
 from wtforms import Form, BooleanField, StringField, PasswordField, validators
+from lib.testgpt.testgpt import TestGPT
+from secret import OPENAI_LICENSE
+
 import sqlite3
 from lib.query_model import UserModel
 
@@ -9,8 +12,18 @@ app.secret_key = 'mysecretkey'
 DATABASEFILE = 'databases/testgpt.db'
 
 
+test_gpt = TestGPT(OPENAI_LICENSE)
+# my_api_key = "<jouw API key>"  # Deze code mag NIET worden gecommit naar github!
+# test_gpt = TestGPT(my_api_key)
+# open_question = test_gpt.generate_open_question(
+#     "De grutto is een oer-Hollandse weidevogel."
+# )
+# print(open_question) 
+
+
 is_admin = 0
 is_not_admin = 1
+
 
 @app.route('/register')
 def register():
@@ -80,11 +93,33 @@ def index():
     #     return redirect(url_for('admin'))
     # else:
     model = UserModel(DATABASEFILE)
+    
     get_categories = model.get_all_categories()
-    get_notes = model.get_all_notes()
+    # get_notes = model.get_all_notes()
+    get_notes = model.get_all_notes_by_name()
+
     return render_template('index.html', categories=get_categories, notes=get_notes)
     
+@app.route('/vragen/<int:note_id>')
+def vragen(note_id):
+    teacher_id = session.get('teacher_id')
+    model = UserModel(DATABASEFILE)
 
+    get_note_by_id = model.get_note_by_id(note_id)
+
+    # get_all_questions_by_note_id = model.get_all_questions_by_note_id(note_id)
+    # get_all_questions_by_id_user = model.get_all_questions_by_id_user(teacher_id)
+
+
+    # if not get_all_questions_by_id_user:
+    #     flash('Er zijn geen vragen gevonden.')
+
+
+    # if not get_all_questions_by_note_id:
+    #     flash('Er zijn geen vragen gevonden')
+    #  all_questions = get_all_questions_by_note_id, get_all_questions_user = get_all_questions_by_id_user,
+        
+    return render_template('vragen.html', note = get_note_by_id)
 
 @app.route('/save-note', methods=['POST'])
 def save_note():

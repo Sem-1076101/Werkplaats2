@@ -26,7 +26,7 @@
 
 
     <p>Hallo, {{ session.username}}! U bent ingelogd</p>
-    
+
     <div>
         <h2>Nieuw notitie</h2>
         <form method="post" action="/save-note">
@@ -77,6 +77,7 @@
                 <a href="#">Verwijderen</a>
                 <a href="#">Aanpassen</a>
                 {% endif %}
+                <a href="/vragen/{{note.note_id}}">Genereer en bekijk vragen</a>
                 <hr>
             </li>
             {% endfor %}
@@ -84,71 +85,69 @@
     </div>
     {% elif session.is_admin == 0 %}
 
- 
- 
     <div class="container">
         <div class="inner-container">
-            <div class="h2_edit">
+            <div class="h2-edit">
                 <h2>Alle notitties van docenten</h2>
             </div>
-
-            <div class="all_notes_names">
-                <div>
-                    <p>Aangemaakt door</p>
+            <div class="all-notes-container">
+                <div class="all-notes-names">
+                    <div>
+                        <p>Aangemaakt door</p>
+                    </div>
+                    <div>
+                        <p>Titel</p>
+                    </div>
+                    <div>
+                        <p>Bron</p>
+                    </div>
+                    <div>
+                        <p>Openbaar</p>
+                    </div>
+                    <div>
+                        <p>Gemaakt op</p>
+                    </div>
+                    <div>
+                        <p>Notitie</p>
+                    </div>
                 </div>
-                <div>
-                    <p>Titel</p>
-                </div>
-                <div>
-                    <p>Bron</p>
-                </div>
-                <div>
-                    <p>Openbaar</p>
-                </div>
-                <div>
-                    <p>Gemaakt op</p>
-                </div>
-                <div>
-                    <p>Notitie</p>
+                <div class="container-notes-data">
+                    {% for note in notes %}
+                    <div class="notes-data">
+                        <div class="box1">
+                            <p>{{ note.display_name }}</p>
+                        </div>
+                        <div class="box2">
+                            <p>{{ note.title }}</p>
+                        </div>
+                        <div class="box3">
+                            <p>{{ note.note_source }}</p>
+                        </div>
+                        <div class="box4">
+                            {% if note.is_public == null %}
+                            <p>Nee</p>
+                            {% else %}
+                            <p>Ja</p>
+                            {% endif %}
+                        </div>
+                        <div class="box5">
+                            <p>{{ note.date_created }}</p>
+                        </div>
+                        <div>
+                            <p>{{ note.note }}</p>
+                        </div>
+                        <div>
+                            <p></p>
+                        </div>
+                    </div>
+                    {% endfor %}
                 </div>
             </div>
-            <div class="container-flex">
-                {% for note in notes %}
-                <div class="teacher">
-                    <div class="box1">
-                        <p>{{ note.note_id }}</p>
-                    </div>
-                    <div class="box2">
-                        <p>{{ note.title }}</p>
-                    </div>
-                    <div class="box3">
-                        <p>{{ note.note_source }}</p>
-                    </div>
-                    <div class="box4">
-                        <p>{{ note.is_public }}</p>
-                    </div>
-                    <div class="box5">
-                        <p>{{note.date_created}}</p>
-                    </div>
-
-                </div>
-
-                {% endfor %}
         </div>
-    </div>
- 
- 
- 
- 
- 
- 
-    <p>dit werkt {{session.username}}</p>
-
-    {% else %}
-
-    <a href="/">Inloggen</a> <br>
-    <a href="/register">Registreren</a>
-    {% endif %}
+        {% else %}
+        <a href="/">Inloggen</a> <br>
+        <a href="/register">Registreren</a>
+        {% endif %}
 </body>
 
 </html>

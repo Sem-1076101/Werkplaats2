@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vragen</title>
+    <link rel="stylesheet" href="/static/CSS/header.css">
+    <link rel="stylesheet" href="/static/CSS/vragen.css">
+</head>
+<body>
+    <div class="header">
+        <a href="#default" class="logo">TEST-CORRECT</a>
+        <div class="header-right">
+            <a class="active" href="/index">Notities</a>
+            <a href="/categories">Categorieën</a>
+            {% if session.is_admin == 0 %}
+            <a href="/admin">Admin</a>
+            {% endif %}
+            <a href="/logout">Uitloggen</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="inner-container">
+            <div class="h2-edit">
+                <h2>Vragen genereren en bekijken</h2>
+                
+            </div>
+            <div class="note">
+                <p>trest</p>
+                {% for notes in note %}
+                <p>De note waar je naar kijkt: {{ notes.title }}</p>
+                <a href="vragen_genereren">Genereer een vraag</a>
+                {% endfor %}
+            </div>
+            <div class="flash_message">
+                {% for message in get_flashed_messages() %}
+                <div class="inner_flash_message">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+            <div class="user-questions-container">
+                <h2>Uw eigen vragen</h2>
+                {% for questions in questions_user %}
+                <div class="user-questions">
+                    <div>
+                        <p>{{questions.exam_question}}</p>
+                        <p>{{questions.date_created}}</p>
+                    </div>
+                </div>
+                {%endfor%}
+            </div>
+            <div class="all-questions-container">
+                <h2>Andere hun vragen gebaseerd op deze notitie</h2>
+                {% for questions in all_questions %}
+                <div class="all-questions">
+                    <div>
+                        <p>{{questions.exam_question}}</p>
+                        <p>{{questions.date_created}}</p>
+                    </div>
+                </div>
+                {%endfor%}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
