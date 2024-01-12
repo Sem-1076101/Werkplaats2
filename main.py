@@ -86,14 +86,13 @@ def index():
     is_admin = session.get('is_admin')
     teacher_id = session.get('teacher_id')
 
-    # if username == 'admin' or is_admin == 0:
-    #     return redirect(url_for('admin'))
-    # else:
     model = UserModel(DATABASEFILE)
     
     get_categories = model.get_all_categories()
-    # get_notes = model.get_all_notes()
     get_notes = model.get_all_notes_by_name()
+
+    # for note in get_notes:
+    #     note['category'] = model.get_categories_by_id(note['category_id'])
 
     return render_template('index.html', categories=get_categories, notes=get_notes)
     
