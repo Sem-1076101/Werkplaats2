@@ -63,7 +63,29 @@
     </div>
 
     <div>
+        <a href="/export-notes" class="btn btn-primary">Exporteer notities naar CSV</a>
+        <ul>
+            {% for note in notes %}
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div>
         <h2>Notities:</h2>
+        <form id="searchForm">
+            <input type="text" id="searchInput" placeholder="Zoek notities...">
+            <button type="button" onclick="searchNotes()">Zoeken</button>
+        </form>
+        
+        <ul id="noteList">
+            {% for note in notes %}
+            <li class="note-item">
+                <strong class="note-title">{{ note.title }}</strong>
+                <p><strong>Bron:</strong> {{ note.note_source }}</p>
+                <p><strong>Openbaar:</strong> {{ note.is_public }}</p>
+            </li>
+            {% endfor %}
+        </ul>
         <ul>
             {% for note in notes %}
             <li>
@@ -82,10 +104,36 @@
             {% endfor %}
         </ul>
     </div>
-    {% elif session.is_admin == 0 %}
 
+    <script>
+        function searchNotes() {
+            var searchInput = document.getElementById('searchInput').value;
+            var noteList = document.getElementById('noteList');
+
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    noteList.innerHTML = xhr.responseText;
+                }
+            };
+
+            var url = '/search-notes?search=' + encodeURIComponent(searchInput);
+
+            xhr.open('GET', url, true);
+            xhr.send();
+        }
+    </script>
+
+    {% elif session.is_admin == 0 %}
  
- 
+    <div>
+        <a href="/export-notes" class="btn btn-primary">Exporteer notities naar CSV</a>
+        <ul>
+            {% for note in notes %}
+            {% endfor %}
+        </ul>
+    </div>
+
     <div class="container">
         <div class="inner-container">
             <div class="h2_edit">
@@ -149,6 +197,7 @@
     <a href="/">Inloggen</a> <br>
     <a href="/register">Registreren</a>
     {% endif %}
+
 </body>
 
 </html>
