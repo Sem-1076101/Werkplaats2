@@ -33,7 +33,7 @@ Admin experience:
 Het meeste werkt hier hetzelfde als bij de docenten. Een admin kan alleen de notities van docenten bekijken. Een admin account heeft een extra tablad "admin". Hier kan je nieuwe docenten toevoegen en deze ook admin rechten geven. in deze tablad kan je ook docenten verwijderen en toevoegen. Verder kan je ook catergorieen verwijderen en bewerken.
 
 
-Wat Hamza gedaan heeft + bronnen:
+# Wat Hamza gedaan heeft + bronnen:
 Header - https://www.w3schools.com/howto/howto_css_responsive_header.asp
 notities aanmaken - workshop van sietze en mark + hulp van sem + https://www.digitalocean.com/community/tutorials/how-to-use-an-sqlite-database-in-a-flask-application
 notities bekijken - workshop van sietze en mark + hulp van sem + https://www.digitalocean.com/community/tutorials/how-to-use-an-sqlite-database-in-a-flask-application
@@ -43,7 +43,7 @@ categorieen aanmaken - workshop van sietze en mark + hulp van sem + https://www.
 categorieen bekijken - workshop van sietze en mark + hulp van sem + https://www.digitalocean.com/community/tutorials/how-to-use-an-sqlite-database-in-a-flask-application
 
 
-Wat Sem gedaan heeft + bronnen:
+# Wat Sem gedaan heeft + bronnen:
 Registratie,
 Login + beveiligd
 Admin pagina overzicht 
@@ -61,3 +61,37 @@ De vragen genereren met Chatgpt
 Gegenereerde vragen veranderen
 Gegenereerde vragen verwijderen
 Gegenereerde vragen bekijken
+Vragen kunnen aanpassen
+
+# Bron:
+De grootste hulp die ik gehad heb was het gebruik maken van de tutorials op school,
+bijvoorbeeld de flask workshop. Daar haalde ik grotendeels uit, vooral voor de inlog.
+Ook voor de routings en etc, uiteindelijk als je de eerste keer iets hebt toegevoegd, veranderd, verwijderd en hebt laten zien. Alles bijna hetzelfde is. 
+
+Verder hieronder youtube videos en sites.
+
+# Videos
+Ik had een probleem met import flask, deze video had geholpen (grotendeels)
+https://www.youtube.com/watch?v=LjXxTvhilOM&t=7s&ab_channel=ProblemSolvingPoint
+
+Deze video heb ik gebruikt voor het verwijderen, niet letterlijk overgenomen maar wel veel info uitgehaald
+https://www.youtube.com/watch?v=7jKsHOZk-IE&t=263s&ab_channel=Codemy.com
+
+Voor de login en registatie dit gekeken.
+https://www.youtube.com/watch?v=lAY7nXh83fI&t=676s&ab_channel=TheCodeCity
+https://www.youtube.com/watch?v=71EU8gnZqZQ&t=1000s&ab_channel=ArpanNeupane
+
+<!-- Algemene Flask tutorials -->
+https://www.youtube.com/watch?v=29JAOgUfDkQ&t=747s&ab_channel=ProgrammingKnowledge
+https://www.youtube.com/watch?v=XTpLbBJTOM4&t=827s&ab_channel=ParwizForogh
+https://www.youtube.com/watch?v=wO7a7R5GGA8&ab_channel=SandeepSudhakaran
+https://www.youtube.com/watch?v=DbAKzi0kR80&t=75s&ab_channel=SandeepSudhakaran (deze niet helemaal gekeken)
+https://www.youtube.com/watch?v=xkduX5AaibQ&t=737s&ab_channel=Cairocoders
+https://www.youtube.com/watch?v=cYWiDiIUxQc&t=1007s&ab_channel=CoreySchafer
+
+# Sites
+https://thepythoncode.com/article/front-end-of-crud-flask-app-using-jinja-and-bootstrap
+https://www.w3schools.com/
+https://www.codementor.io/@garethdwyer/building-a-crud-application-with-flask-and-sqlalchemy-dm3wv7yu2
+https://dev.to/__junaidshah/creating-a-crud-app-using-flask-and-sqlalchemy-2m5k
+https://stackoverflow.com
