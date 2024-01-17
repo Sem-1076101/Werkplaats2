@@ -33,6 +33,15 @@ Admin experience:
 Het meeste werkt hier hetzelfde als bij de docenten. Een admin kan alleen de notities van docenten bekijken. Een admin account heeft een extra tablad "admin". Hier kan je nieuwe docenten toevoegen en deze ook admin rechten geven. in deze tablad kan je ook docenten verwijderen en toevoegen. Verder kan je ook catergorieen verwijderen en bewerken.
 
 
+# Opstarten
+Om het programma op te starten heb je een open ai code nodig, je moet een file genaamd secret.py aanmaken en dan onder de naam: OPENAI_LICENSE de code invullen. In het mapje uitleg_opstart staat een voorbeeld.
+
+Opstarten via terminal:
+Je kan in de terminal naar het mapje gaan van dit project en daar python3 main.py in typen. Dan start het project op, voor een voorbeeld kan je in het mapje uitleg_opstart kijken.
+
+Als je in Vscode werkt, kan je ook met de python extensie hem gelijk opstarten. Wel via de main.py
+
+
 # Wat Hamza gedaan heeft + bronnen:
 Header - https://www.w3schools.com/howto/howto_css_responsive_header.asp
 notities aanmaken - workshop van sietze en mark + hulp van sem + https://www.digitalocean.com/community/tutorials/how-to-use-an-sqlite-database-in-a-flask-application

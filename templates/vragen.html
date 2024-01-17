@@ -28,13 +28,11 @@
             </div>
             <div class="note">
                 <p>trest</p>
-                {% for notes in note %}
-                <p>De note waar je naar kijkt: {{ notes.note }} {{ notes.note_id }}</p>
+                <p>De note waar je naar kijkt: {{ note.note }} {{ note.note_id }}</p>
                 <form action="/genereer_vraag" method="post">
-                    <input type="text" name="question_note" value="{{notes.note}}" hidden>
+                    <input type="text" name="question_note" value="{{note.note}}" hidden>
                     <button type="submit" name="submit_question_note">Vraag generen</button>
                 </form>
-                {% endfor %}
             </div>
             <div class="flash_message">
                 {% for message in get_flashed_messages() %}

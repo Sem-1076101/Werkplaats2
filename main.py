@@ -127,15 +127,19 @@ def genereer_vraag():
 
         # note wordt gezocht met het id, daarna wordt de open vraag gegenereerd
         get_note_id_by_note = model.get_note_id_by_note(question_note)
-        open_question = test_gpt.generate_open_question(question_note)
+        # open_question = test_gpt.generate_open_question(question_note)
+        open_question = "Dit is een gegenereerde vraag van chatgpt test"
 
-        return render_template('question_note.html', question_note=question_note, open_question=open_question, note_id = get_note_id_by_note)
+        print(open_question)
+        print(question_note)
+
+        return render_template('vraag_note.html', question_note=question_note, open_question=open_question, note_id = get_note_id_by_note)
     
-    return render_template('question_note.html')
+    return render_template('vraag_note.html')
 
 # hier worden de vragen verwerkt
-@app.route('/question_aanmaak_verwerk', methods = ['POST', 'GET'])
-def question_aanmaak_verwerk():
+@app.route('/vraag_aanmaak_verwerk', methods = ['POST', 'GET'])
+def vraag_aanmaak_verwerk():
     teacher_id = session.get('teacher_id')
     note_id = request.form.get('note_id')
     generated_question = request.form.get('generated_question')
@@ -200,7 +204,7 @@ def save_category():
 @app.route('/admin') 
 def admin():
     is_admin = session.get('is_admin')
-    if is_admin == is_admin_magicNumber:
+    if is_admin == is_not_admin_magicNumber:
         flash('U moet inloggen om deze pagina te bezoeken.')
         return redirect(url_for('login'))
     else:
